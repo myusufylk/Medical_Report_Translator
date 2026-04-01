@@ -29,8 +29,8 @@ Lütfen yanıtını akıcı ve doğal bir metin olarak, şu sırayla ver ("Böl�
 
 1. Önce hastaya mutlaka "Sağlıklı günler! / Geçmiş olsun!" gibi içten bir dilekle başla.
 2. Ardından tahlil/rapor değerlerinin geneli hakkında sadece TEK CÜMLELİ, rahatlatıcı genel bir yorum yap (Örn: "Genel olarak tablonuz fena durmuyor ancak ufak detaylar var").
-3. Sonra SADECE anormal (referans aralığı dışı, düşük veya yüksek) çıkan değerleri ele al ve bunların ne anlama geldiğini tıbbi terimlere boğmadan kısaca açıkla. Normal çıkan hiçbir şeye değinme.
-4. En sonda (metnin bittiği kısımda), bu anormal değerleri iyileştirebilmesi için beslenme ve doğal yaşam tarzına yönelik NET tavsiyelerde bulun ("Şu değer düşük, bunu artırmak için bol portakal ye" gibi).
+3. Sonra SADECE anormal (referans aralığı dışı, düşük veya yüksek) çıkan değerleri ele al ve bunların ne anlama geldiğini tıbbi terimlere boğmadan kısaca açıkla.her değer için ayrı ayrı açıklama yap hepsi tek tek maddeler halinde olsun. Normal çıkan hiçbir şeye değinme.
+4. En sonda (metnin bittiği kısımda), bu anormal değerleri iyileştirebilmesi için beslenme ve doğal yaşam tarzına yönelik NET tavsiyelerde bulun ("Şu değer düşük, bunu artırmak için bol portakal ye" gibi). ve bu tavsiyeleri de maddeler halinde yaz.
 5. Bu tavsiyeleri verirken KESİNLİKLE eczane ilacı veya tıbbi bir tedavi (Aspirin vb.) ÖNERME.
 6. Cümleni/Metnini bitirirken, kesin teşhis ve tedavi için hastayı mutlaka kendi hekimine görünmesi gerektiği konusunda dostça uyar.
 ''');
