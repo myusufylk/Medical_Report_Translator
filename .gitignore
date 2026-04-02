@@ -1,6 +1,5 @@
-# Miscellaneous
-*.class
-*.log
+venv/
+__pycache__/
 *.pyc
 *.swp
 .DS_Store
