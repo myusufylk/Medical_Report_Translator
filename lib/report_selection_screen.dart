@@ -1,9 +1,83 @@
+import 'dart:typed_data';
 import 'package:flutter/material.dart';
+import 'package:file_picker/file_picker.dart';
+import 'package:image_picker/image_picker.dart';
+import 'result_screen.dart';
 
 class ReportSelectionScreen extends StatelessWidget {
   const ReportSelectionScreen({super.key});
 
-  // Tıklanan rapor türü için alt menü (Kamera/PDF seçimi) açan fonksiyon
+  Future<void> _pickFile(BuildContext context, String reportType) async {
+    try {
+      final result = await FilePicker.platform.pickFiles(
+        type: FileType.custom,
+        allowedExtensions: ['jpg', 'jpeg', 'png', 'gif'], // Geçici olarak sadece resimler
+        allowMultiple: false,
+        withData: true, // Web'de bytes almak için zorunlu
+      );
+
+      if (context.mounted && result != null && result.files.isNotEmpty) {
+        final file = result.files.first;
+        if (file.bytes != null) {
+          Navigator.pop(context); // Selection modalını kapat
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => ResultScreen(
+                imageBytes: file.bytes!,
+                reportType: reportType,
+              ),
+            ),
+          );
+        } else {
+          _showError(context, 'Dosya okunamadı (boş veya geçersiz format).');
+        }
+      }
+    } catch (e) {
+      if (context.mounted) {
+        _showError(context, 'Dosya seçilirken hata oluştu: $e');
+      }
+    }
+  }
+
+  Future<void> _takePhoto(BuildContext context, String reportType) async {
+    try {
+      final ImagePicker picker = ImagePicker();
+      final XFile? photo = await picker.pickImage(
+        source: ImageSource.camera,
+        imageQuality: 85,
+      );
+
+      if (context.mounted && photo != null) {
+        final Uint8List imageBytes = await photo.readAsBytes();
+        Navigator.pop(context); // Modal kapat
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => ResultScreen(
+              imageBytes: imageBytes,
+              reportType: reportType,
+            ),
+          ),
+        );
+      }
+    } catch (e) {
+      if (context.mounted) {
+        _showError(context, 'Kamera açılırken hata oluştu: $e');
+      }
+    }
+  }
+
+  void _showError(BuildContext context, String message) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(message),
+        backgroundColor: Colors.red,
+        duration: const Duration(seconds: 3),
+      ),
+    );
+  }
+
   void _showUploadOptions(BuildContext context, String reportType) {
     showModalBottomSheet(
       context: context,
@@ -25,28 +99,14 @@ class ReportSelectionScreen extends StatelessWidget {
               ),
               const SizedBox(height: 20),
               ListTile(
-                leading: const Icon(
-                  Icons.camera_alt,
-                  color: Colors.blue,
-                  size: 30,
-                ),
+                leading: const Icon(Icons.camera_alt, color: Colors.blue, size: 30),
                 title: const Text('Kamerayla Çek'),
-                onTap: () {
-                  // TODO: İleride kamerayı açacak kod buraya gelecek
-                  Navigator.pop(context);
-                },
+                onTap: () => _takePhoto(context, reportType),
               ),
               ListTile(
-                leading: const Icon(
-                  Icons.picture_as_pdf,
-                  color: Colors.red,
-                  size: 30,
-                ),
-                title: const Text('PDF veya Görsel Seç'),
-                onTap: () {
-                  // TODO: İleride galeriyi/dosyaları açacak kod buraya gelecek
-                  Navigator.pop(context);
-                },
+                leading: const Icon(Icons.image, color: Colors.red, size: 30),
+                title: const Text('Galeriden Görsel Seç'),
+                onTap: () => _pickFile(context, reportType),
               ),
             ],
           ),
@@ -80,7 +140,6 @@ class ReportSelectionScreen extends StatelessWidget {
             ),
             const SizedBox(height: 10),
 
-            // 1. Seçenek: Kan Tahlili
             _buildReportCard(
               context,
               title: 'Kan Tahlili',
@@ -88,8 +147,6 @@ class ReportSelectionScreen extends StatelessWidget {
               icon: Icons.bloodtype,
               color: Colors.red.shade400,
             ),
-
-            // 2. Seçenek: Epikriz Raporu
             _buildReportCard(
               context,
               title: 'Epikriz Raporu',
@@ -97,8 +154,6 @@ class ReportSelectionScreen extends StatelessWidget {
               icon: Icons.description,
               color: Colors.blue.shade600,
             ),
-
-            // 3. Seçenek: EKG Raporu
             _buildReportCard(
               context,
               title: 'EKG Metin Raporu',
@@ -112,7 +167,6 @@ class ReportSelectionScreen extends StatelessWidget {
     );
   }
 
-  // Tasarımı temiz tutmak için kartları oluşturan yardımcı bir widget
   Widget _buildReportCard(
     BuildContext context, {
     required String title,
@@ -146,27 +200,17 @@ class ReportSelectionScreen extends StatelessWidget {
                   children: [
                     Text(
                       title,
-                      style: const TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                      ),
+                      style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                     ),
                     const SizedBox(height: 4),
                     Text(
                       subtitle,
-                      style: TextStyle(
-                        fontSize: 14,
-                        color: Colors.grey.shade600,
-                      ),
+                      style: TextStyle(fontSize: 14, color: Colors.grey.shade600),
                     ),
                   ],
                 ),
               ),
-              Icon(
-                Icons.arrow_forward_ios,
-                color: Colors.grey.shade400,
-                size: 20,
-              ),
+              Icon(Icons.arrow_forward_ios, color: Colors.grey.shade400, size: 20),
             ],
           ),
         ),
