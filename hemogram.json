@@ -1,0 +1,142 @@
+{
+  "WBC": {
+    "tam_adi": "Beyaz Kan Hücresi Sayısı / White Blood Cell Count",
+    "kategori": "Hemogram",
+    "normal_aralik": "4.000 – 10.000 /µL (her iki cinsiyet için)",
+    "sade_aciklama": "Vücudunuzun enfeksiyonlara ve hastalıklara karşı savaşan savunma hücrelerinin sayısını gösterir.",
+    "yuksekse": "Enfeksiyon, iltihap, alerjik reaksiyon, stres, bazı ilaçların etkisi veya nadiren kan hastalıkları (lösemi gibi) düşünülebilir.",
+    "dusukse": "Bağışıklık sisteminin zayıfladığını gösterebilir. Viral enfeksiyonlar, kemik iliği sorunları veya bazı ilaçların yan etkisi olabilir.",
+    "anormal_durum": null,
+    "tehlikeli_deger": "< 2.000 /µL (ciddi enfeksiyon riski) veya > 30.000 /µL (akut enfeksiyon veya lösemi şüphesi)"
+  },
+  "RBC": {
+    "tam_adi": "Kırmızı Kan Hücresi Sayısı / Red Blood Cell Count",
+    "kategori": "Hemogram",
+    "normal_aralik": "Erkek: 4,5 – 5,5 milyon/µL; Kadın: 4,0 – 5,0 milyon/µL",
+    "sade_aciklama": "Kanınızdaki oksijen taşıyan kırmızı hücrelerin sayısını gösterir.",
+    "yuksekse": "Dehidrasyon, sigara kullanımı, yüksek rakımda yaşam, polisitemia vera gibi kan hastalıkları düşünülebilir.",
+    "dusukse": "Kansızlık (anemi) belirtisi olabilir. Demir eksikliği, B12 eksikliği, kronik hastalıklar veya kanama nedeniyle düşebilir.",
+    "anormal_durum": null,
+    "tehlikeli_deger": "< 3,0 milyon/µL (ciddi anemi) veya > 6,5 milyon/µL (pıhtılaşma riski)"
+  },
+  "HGB": {
+    "tam_adi": "Hemoglobin / Hemoglobin",
+    "kategori": "Hemogram",
+    "normal_aralik": "Erkek: 13,5 – 17,5 g/dL; Kadın: 12,0 – 16,0 g/dL",
+    "sade_aciklama": "Kırmızı kan hücrelerinin içindeki oksijen taşıyan proteinin miktarını gösterir. Kansızlık değerlendirmesinde en önemli parametredir.",
+    "yuksekse": "Dehidrasyon, kronik akciğer hastalığı, polisitemia vera veya yüksek rakım etkisi olabilir.",
+    "dusukse": "Kansızlık (anemi) belirtisidir. Demir, B12 veya folat eksikliği, kronik hastalık, kanama veya kemik iliği sorunları olabilir.",
+    "anormal_durum": null,
+    "tehlikeli_deger": "< 7,0 g/dL (transfüzyon gerektirebilir) veya > 20 g/dL (pıhtılaşma riski)"
+  },
+  "HCT": {
+    "tam_adi": "Hematokrit / Hematocrit",
+    "kategori": "Hemogram",
+    "normal_aralik": "Erkek: %40 – %54; Kadın: %36 – %48",
+    "sade_aciklama": "Kanınızın yüzde kaçının kırmızı kan hücrelerinden oluştuğunu gösterir.",
+    "yuksekse": "Dehidrasyon, polisitemia vera veya kronik akciğer hastalığı olabilir. Kan yoğunlaşmıştır.",
+    "dusukse": "Kansızlık, aşırı sıvı yüklenmesi veya kanama olabilir.",
+    "anormal_durum": null,
+    "tehlikeli_deger": "< %20 (ciddi anemi, acil transfüzyon) veya > %60 (pıhtılaşma ve inme riski)"
+  },
+  "PLT": {
+    "tam_adi": "Trombosit Sayısı / Platelet Count",
+    "kategori": "Hemogram",
+    "normal_aralik": "150.000 – 400.000 /µL (her iki cinsiyet için)",
+    "sade_aciklama": "Kanama durdurmaya yardımcı olan pıhtılaşma hücrelerinin sayısını gösterir.",
+    "yuksekse": "Demir eksikliği, enfeksiyon, iltihap, kanama sonrası tepki veya nadiren kemik iliği hastalıkları olabilir.",
+    "dusukse": "Kanama eğilimi artabilir. Viral enfeksiyonlar, bazı ilaçlar, otoimmün hastalıklar veya kemik iliği sorunları nedeniyle düşebilir.",
+    "anormal_durum": null,
+    "tehlikeli_deger": "< 20.000 /µL (spontan kanama riski) veya > 1.000.000 /µL (pıhtılaşma veya kanama riski)"
+  },
+  "MCV": {
+    "tam_adi": "Ortalama Eritrosit Hacmi / Mean Corpuscular Volume",
+    "kategori": "Hemogram",
+    "normal_aralik": "80 – 100 fL (her iki cinsiyet için)",
+    "sade_aciklama": "Kırmızı kan hücrelerinizin ortalama büyüklüğünü gösterir. Kansızlığın türünü belirlemede önemlidir.",
+    "yuksekse": "B12 veya folat eksikliği, karaciğer hastalığı, hipotiroidizm veya alkol kullanımı düşünülebilir (makrositer anemi).",
+    "dusukse": "Demir eksikliği anemisi veya talasemi düşünülebilir (mikrositer anemi).",
+    "anormal_durum": null,
+    "tehlikeli_deger": "< 60 fL veya > 120 fL (ciddi anemi araştırması gerektirir)"
+  },
+  "MCH": {
+    "tam_adi": "Ortalama Eritrosit Hemoglobini / Mean Corpuscular Hemoglobin",
+    "kategori": "Hemogram",
+    "normal_aralik": "27 – 33 pg (her iki cinsiyet için)",
+    "sade_aciklama": "Her bir kırmızı kan hücresinin ortalama olarak ne kadar hemoglobin (oksijen taşıyan protein) içerdiğini gösterir.",
+    "yuksekse": "B12 veya folat eksikliğine bağlı makrositer anemi düşünülebilir.",
+    "dusukse": "Demir eksikliği anemisi veya talasemi düşünülebilir.",
+    "anormal_durum": null,
+    "tehlikeli_deger": "< 20 pg veya > 40 pg (anemi tipinin ileri araştırması gereklidir)"
+  },
+  "MCHC": {
+    "tam_adi": "Ortalama Eritrosit Hemoglobin Konsantrasyonu / Mean Corpuscular Hemoglobin Concentration",
+    "kategori": "Hemogram",
+    "normal_aralik": "32 – 36 g/dL (her iki cinsiyet için)",
+    "sade_aciklama": "Kırmızı kan hücrelerindeki hemoglobin yoğunluğunu gösterir.",
+    "yuksekse": "Herediter sferositoz gibi nadir kan hastalıkları düşünülebilir.",
+    "dusukse": "Demir eksikliği anemisi veya talasemi düşünülebilir. Hücrelerin yeterince hemoglobin üretemediğini gösterir.",
+    "anormal_durum": null,
+    "tehlikeli_deger": "< 28 g/dL veya > 38 g/dL (hemolitik anemi araştırması gerekebilir)"
+  },
+  "RDW": {
+    "tam_adi": "Kırmızı Hücre Dağılım Genişliği / Red Cell Distribution Width",
+    "kategori": "Hemogram",
+    "normal_aralik": "%11,5 – %14,5 (her iki cinsiyet için)",
+    "sade_aciklama": "Kırmızı kan hücrelerinizin boyut farklılığını gösterir. Hücrelerin ne kadar homojen olduğunu ölçer.",
+    "yuksekse": "Demir eksikliği, B12 eksikliği, folat eksikliği veya karma anemi türlerini düşündürür. Hücreler farklı boyutlardadır.",
+    "dusukse": "Genellikle klinik önemi yoktur.",
+    "anormal_durum": null,
+    "tehlikeli_deger": "> %20 (ciddi anemi veya kemik iliği hastalığı araştırması gerektirir)"
+  },
+  "Notrofil": {
+    "tam_adi": "Nötrofil / Neutrophil",
+    "kategori": "Hemogram",
+    "normal_aralik": "2.000 – 7.000 /µL veya %40 – %70 (her iki cinsiyet için)",
+    "sade_aciklama": "Bakteriyel enfeksiyonlara karşı ilk savunma hattı olan beyaz kan hücresi türüdür.",
+    "yuksekse": "Bakteriyel enfeksiyon, iltihap, stres, steroid kullanımı veya nadiren miyeloproliferatif hastalıklar olabilir.",
+    "dusukse": "Nötropeni denir. Viral enfeksiyonlar, kemoterapi, bazı ilaçlar veya kemik iliği sorunları nedeniyle düşebilir. Enfeksiyon riski artar.",
+    "anormal_durum": null,
+    "tehlikeli_deger": "< 500 /µL (ağır nötropeni – ciddi enfeksiyon riski, izolasyon gerekebilir)"
+  },
+  "Lenfosit": {
+    "tam_adi": "Lenfosit / Lymphocyte",
+    "kategori": "Hemogram",
+    "normal_aralik": "1.000 – 4.000 /µL veya %20 – %40 (her iki cinsiyet için)",
+    "sade_aciklama": "Viral enfeksiyonlara karşı savaşan ve bağışıklık hafızası oluşturan beyaz kan hücresi türüdür.",
+    "yuksekse": "Viral enfeksiyonlar (EBV, CMV gibi), kronik lenfositik lösemi veya bazı otoimmün hastalıklar düşünülebilir.",
+    "dusukse": "HIV enfeksiyonu, steroid kullanımı, kemoterapi, radyasyon tedavisi veya otoimmün hastalıklar olabilir. Bağışıklık sistemi zayıflayabilir.",
+    "anormal_durum": null,
+    "tehlikeli_deger": "< 500 /µL (ciddi immün yetmezlik riski) veya > 10.000 /µL (lösemi araştırması gerekebilir)"
+  },
+  "Monosit": {
+    "tam_adi": "Monosit / Monocyte",
+    "kategori": "Hemogram",
+    "normal_aralik": "200 – 800 /µL veya %2 – %8 (her iki cinsiyet için)",
+    "sade_aciklama": "Enfeksiyon ve iltihabı temizleyen, dokuları onaran beyaz kan hücresi türüdür.",
+    "yuksekse": "Kronik enfeksiyonlar (tüberküloz gibi), otoimmün hastalıklar, iltihabi bağırsak hastalığı veya bazı kan hastalıkları düşünülebilir.",
+    "dusukse": "Genellikle tek başına klinik anlamı sınırlıdır. Kemik iliği baskılanması veya bazı genetik hastalıklarda görülebilir.",
+    "anormal_durum": null,
+    "tehlikeli_deger": "> 1.500 /µL (kronik miyelomonositik lösemi gibi hastalıklar araştırılmalıdır)"
+  },
+  "Eozinofil": {
+    "tam_adi": "Eozinofil / Eosinophil",
+    "kategori": "Hemogram",
+    "normal_aralik": "100 – 500 /µL veya %1 – %4 (her iki cinsiyet için)",
+    "sade_aciklama": "Alerjik reaksiyonlarda ve parazit enfeksiyonlarında devreye giren beyaz kan hücresi türüdür.",
+    "yuksekse": "Alerjik hastalıklar (astım, saman nezlesi), parazit enfeksiyonları, ilaç alerjileri veya bazı nadir hastalıklar (eozinofilik özofajit gibi) olabilir.",
+    "dusukse": "Genellikle klinik önemi yoktur. Akut stres veya steroid kullanımı ile düşebilir.",
+    "anormal_durum": null,
+    "tehlikeli_deger": "> 1.500 /µL (hipereozinofilik sendrom – organ hasarı riski)"
+  },
+  "MPV": {
+    "tam_adi": "Ortalama Trombosit Hacmi / Mean Platelet Volume",
+    "kategori": "Hemogram",
+    "normal_aralik": "7,5 – 11,5 fL (her iki cinsiyet için)",
+    "sade_aciklama": "Trombositlerin (pıhtılaşma hücreleri) ortalama büyüklüğünü gösterir.",
+    "yuksekse": "Trombositlerin yoğun üretildiğini gösterebilir. İmmün trombositopeni (ITP), hipotiroidizm veya diyabet ile ilişkili olabilir.",
+    "dusukse": "Kemik iliğinin trombosit üretiminde sorun yaşadığını gösterebilir. Aplastik anemi veya kemoterapi etkisi olabilir.",
+    "anormal_durum": null,
+    "tehlikeli_deger": "> 13 fL (trombosit fonksiyon bozukluğu ve tromboz riski açısından değerlendirilmelidir)"
+  }
+}

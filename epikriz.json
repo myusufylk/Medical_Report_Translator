@@ -1,0 +1,142 @@
+{
+    "Epikriz": {
+        "tam_adi": "Epikriz (Taburculuk Özeti) / Discharge Summary (Epicrisis)",
+        "kategori": "Epikriz",
+        "normal_aralik": null,
+        "sade_aciklama": "Hastaneden taburcu olurken hazırlanan, hastalığınızın seyri, yapılan tedaviler ve sonuçları özetleyen resmi belgedir.",
+        "yuksekse": null,
+        "dusukse": null,
+        "anormal_durum": "Eksik veya hatalı epikriz, tedavi sürekliliğini bozabilir. Tanı, tedavi planı, ilaç listesi ve kontrol bilgileri mutlaka eksiksiz olmalıdır.",
+        "tehlikeli_deger": null
+    },
+    "Primer_Tani": {
+        "tam_adi": "Primer Tanı (Ana Tanı) / Primary Diagnosis",
+        "kategori": "Epikriz",
+        "normal_aralik": null,
+        "sade_aciklama": "Hastaneye yatış nedeniniz olan veya tedavinin ana odağı olan temel hastalık tanısıdır.",
+        "yuksekse": null,
+        "dusukse": null,
+        "anormal_durum": "Primer tanının yanlış veya eksik belirlenmesi, tedavi planını olumsuz etkiler ve sigorta/faturalama sorunlarına yol açabilir. ICD-10 kodu ile eşleşmelidir.",
+        "tehlikeli_deger": null
+    },
+    "Sekonder_Tani": {
+        "tam_adi": "Sekonder Tanı (Ek Tanı) / Secondary Diagnosis",
+        "kategori": "Epikriz",
+        "normal_aralik": null,
+        "sade_aciklama": "Ana hastalığınızın yanı sıra saptanan diğer hastalık veya durumları gösterir (örneğin diyabet, hipertansiyon gibi eşlik eden hastalıklar).",
+        "yuksekse": null,
+        "dusukse": null,
+        "anormal_durum": "Çok sayıda sekonder tanı, hastanın çoklu hastalık (komorbidite) yüküne sahip olduğunu gösterir ve tedavi planını karmaşıklaştırabilir.",
+        "tehlikeli_deger": null
+    },
+    "ICD10_Kodu": {
+        "tam_adi": "ICD-10 Kodu / ICD-10 Code (International Classification of Diseases, 10th Revision)",
+        "kategori": "Epikriz",
+        "normal_aralik": null,
+        "sade_aciklama": "Dünya Sağlık Örgütü (WHO) tarafından belirlenen uluslararası hastalık sınıflandırma kodudur. Her tanının bir kodu vardır.",
+        "yuksekse": null,
+        "dusukse": null,
+        "anormal_durum": "Yanlış ICD-10 kodu, istatistiksel hatalara, sigorta red'lerine ve yanlış tedavi protokollerinin uygulanmasına yol açabilir. Kod, tanı ile bire bir uyumlu olmalıdır.",
+        "tehlikeli_deger": null
+    },
+    "Anamnez": {
+        "tam_adi": "Anamnez (Tıbbi Öykü) / Anamnesis (Medical History)",
+        "kategori": "Epikriz",
+        "normal_aralik": null,
+        "sade_aciklama": "Hastanın şikayetlerinin ne zaman başladığı, nasıl ilerlediği, geçmiş hastalıkları, kullandığı ilaçlar ve aile öyküsünü kapsayan tıbbi geçmiş bilgisidir.",
+        "yuksekse": null,
+        "dusukse": null,
+        "anormal_durum": "Eksik veya hatalı anamnez, yanlış tanıya ve uygunsuz tedaviye yol açabilir. Özellikle ilaç alerjileri ve kronik hastalıkların eksik bildirilmesi tehlikeli olabilir.",
+        "tehlikeli_deger": null
+    },
+    "Vital_Bulgular": {
+        "tam_adi": "Vital Bulgular (Yaşamsal Belirtiler) / Vital Signs",
+        "kategori": "Epikriz",
+        "normal_aralik": "Tansiyon: 120/80 mmHg; Nabız: 60–100/dk; Solunum: 12–20/dk; Ateş: 36,1–37,2 °C; SpO2: %95–100",
+        "sade_aciklama": "Vücudunuzun temel yaşamsal fonksiyonlarını gösteren ölçümlerdir: tansiyon, nabız, solunum hızı, ateş ve oksijen doygunluğu.",
+        "yuksekse": null,
+        "dusukse": null,
+        "anormal_durum": "Herhangi bir vital bulgunun normal aralık dışında olması klinik değerlendirme gerektirir. Birden fazla vital bulgunun bozukluğu ciddi bir durumu işaret eder.",
+        "tehlikeli_deger": "Sistolik tansiyon < 90 mmHg (şok), kalp hızı < 40 veya > 150/dk, solunum hızı < 8 veya > 30/dk, ateş > 40 °C, SpO2 < %90 – bunların herhangi biri acil müdahale gerektirir"
+    },
+    "Taburculuk_Durumu": {
+        "tam_adi": "Taburculuk Durumu / Discharge Status",
+        "kategori": "Epikriz",
+        "normal_aralik": null,
+        "sade_aciklama": "Hastaneden çıkış anındaki genel sağlık durumunuzu ve taburculuk şeklinizi belirtir.",
+        "yuksekse": null,
+        "dusukse": null,
+        "anormal_durum": "Taburculuk durumları: Şifa ile (tam iyileşme), düzelme ile (kısmi iyileşme), kendi isteği ile (tedavi tamamlanmadan), sevk (üst merkeze transfer), exitus (ölüm). Kendi isteği ile taburculuk, tıbbi riskleri artırabilir.",
+        "tehlikeli_deger": null
+    },
+    "Konsultasyon": {
+        "tam_adi": "Konsültasyon / Consultation",
+        "kategori": "Epikriz",
+        "normal_aralik": null,
+        "sade_aciklama": "Tedavi sürecinizde başka uzmanlık dallarından görüş alınması işlemidir.",
+        "yuksekse": null,
+        "dusukse": null,
+        "anormal_durum": "Çok sayıda konsültasyon, karmaşık veya çok sistemli bir hastalığı gösterebilir. Konsültasyonların sonuçlarının ve önerilerinin epikrizde yer alması tedavi sürekliliği için önemlidir.",
+        "tehlikeli_deger": null
+    },
+    "Prognoz": {
+        "tam_adi": "Prognoz (Hastalığın Öngörülen Seyri) / Prognosis",
+        "kategori": "Epikriz",
+        "normal_aralik": null,
+        "sade_aciklama": "Hastalığınızın bundan sonraki beklenen seyrini, iyileşme sürecini ve olası sonuçlarını gösteren tıbbi değerlendirmedir.",
+        "yuksekse": null,
+        "dusukse": null,
+        "anormal_durum": "Kötü prognoz, hastalığın ilerleyici veya tedaviye dirençli olduğunu gösterir. Palyatif bakım, ek tedavi seçenekleri veya yaşam kalitesi planlaması gerekebilir.",
+        "tehlikeli_deger": null
+    },
+    "Taburculuk_Ilaclari": {
+        "tam_adi": "Taburculuk İlaçları (Reçete) / Discharge Medications",
+        "kategori": "Epikriz",
+        "normal_aralik": null,
+        "sade_aciklama": "Hastaneden çıktıktan sonra evde kullanmanız gereken ilaçların listesidir. Doz, kullanım sıklığı ve süresi yazılır.",
+        "yuksekse": null,
+        "dusukse": null,
+        "anormal_durum": "İlaç etkileşimleri, doz hataları veya alerji öyküsü ile çelişen ilaçların reçete edilmesi ciddi yan etkilere yol açabilir. İlaç uyumsuzluğu (non-compliance) tedavi başarısızlığına neden olabilir.",
+        "tehlikeli_deger": null
+    },
+    "Kontrol_Randevusu": {
+        "tam_adi": "Kontrol Randevusu / Follow-up Appointment",
+        "kategori": "Epikriz",
+        "normal_aralik": null,
+        "sade_aciklama": "Taburculuk sonrası tedavinin etkinliğinin değerlendirilmesi için planlanan doktor muayene tarihidir.",
+        "yuksekse": null,
+        "dusukse": null,
+        "anormal_durum": "Kontrol randevusuna gitmemek, komplikasyonların geç fark edilmesine ve hastalığın ilerlemesine yol açabilir. Özellikle cerrahi sonrası, kemoterapi ve kronik hastalık takibinde kontrol randevuları kritiktir.",
+        "tehlikeli_deger": null
+    },
+    "Tedavi_Plani": {
+        "tam_adi": "Tedavi Planı / Treatment Plan",
+        "kategori": "Epikriz",
+        "normal_aralik": null,
+        "sade_aciklama": "Hastalığınız için uygulanacak tıbbi tedavinin (ilaç, cerrahi, fizik tedavi vb.) aşamalarını ve hedeflerini gösteren plandır.",
+        "yuksekse": null,
+        "dusukse": null,
+        "anormal_durum": "Tedavi planının hasta tarafından anlaşılmaması veya uygulanmaması, hastalığın kötüleşmesine yol açar. Plan, hasta eğitimi, yaşam tarzı değişiklikleri ve izlem takvimini içermelidir.",
+        "tehlikeli_deger": null
+    },
+    "Hipertansiyon": {
+        "tam_adi": "Hipertansiyon (Yüksek Tansiyon) / Hypertension",
+        "kategori": "Epikriz",
+        "normal_aralik": "Normal: < 120/80 mmHg; Yükselmiş: 120–129/<80; Evre 1 HT: 130–139/80–89; Evre 2 HT: ≥ 140/90 mmHg",
+        "sade_aciklama": "Kan basıncının sürekli olarak normal değerlerin üzerinde olması durumudur. Kalp, beyin ve böbrek hasarına yol açabilir.",
+        "yuksekse": "Kalp krizi, inme, böbrek yetmezliği, göz hasarı ve damar hastalığı riski artar.",
+        "dusukse": null,
+        "anormal_durum": "Dirençli hipertansiyon (3 veya daha fazla ilaca rağmen kontrol altına alınamayan) sekonder nedenleri (renal arter stenozu, feokromasitoma, Cushing sendromu gibi) araştırmayı gerektirir.",
+        "tehlikeli_deger": "Sistolik > 180 mmHg ve/veya Diastolik > 120 mmHg (hipertansif acil/kriz – organ hasarı riski, acil müdahale gerektirir)"
+    },
+    "Diyabet": {
+        "tam_adi": "Diyabet (Şeker Hastalığı) / Diabetes Mellitus",
+        "kategori": "Epikriz",
+        "normal_aralik": "Açlık glukoz < 100 mg/dL normal; 100–125 mg/dL prediyabet; ≥ 126 mg/dL diyabet. HbA1c < %5,7 normal; ≥ %6,5 diyabet",
+        "sade_aciklama": "Vücudun kan şekerini yeterince kontrol edemediği kronik bir hastalıktır. Tip 1 ve Tip 2 olmak üzere iki ana tipi vardır.",
+        "yuksekse": "Kontrol altında olmayan diyabet; göz hasarı (retinopati), böbrek hasarı (nefropati), sinir hasarı (nöropati), kalp-damar hastalıkları ve yara iyileşme bozukluğuna yol açabilir.",
+        "dusukse": null,
+        "anormal_durum": "Diyabetik ketoasidoz (Tip 1'de daha sık) veya hiperozmolar hiperglisemik durum (Tip 2'de daha sık) hayatı tehdit eden komplikasyonlardır.",
+        "tehlikeli_deger": "Kan şekeri > 500 mg/dL veya < 40 mg/dL ile bilinç değişikliği – acil müdahale gerektirir. DKA bulguları (kusma, karın ağrısı, Kussmaul solunumu, aseton kokusu) – acil yoğun bakım"
+    }
+}
