@@ -8,7 +8,7 @@ plugins {
 android {
     namespace = "com.medikalrapor.medikal_rapor_tercuman"
     compileSdk = flutter.compileSdkVersion
-    ndkVersion = flutter.ndkVersion
+    ndkVersion = "27.0.12077973" // Ensures plugin-required NDK matches established version.
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11

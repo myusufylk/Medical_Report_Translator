@@ -11,7 +11,12 @@ class ReportSelectionScreen extends StatelessWidget {
     try {
       final result = await FilePicker.platform.pickFiles(
         type: FileType.custom,
-        allowedExtensions: ['jpg', 'jpeg', 'png', 'gif'], // Geçici olarak sadece resimler
+        allowedExtensions: [
+          'jpg',
+          'jpeg',
+          'png',
+          'gif',
+        ], // Geçici olarak sadece resimler
         allowMultiple: false,
         withData: true, // Web'de bytes almak için zorunlu
       );
@@ -23,10 +28,11 @@ class ReportSelectionScreen extends StatelessWidget {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => ResultScreen(
-                imageBytes: file.bytes!,
-                reportType: reportType,
-              ),
+              builder:
+                  (context) => ResultScreen(
+                    fileBytes: file.bytes!,
+                    reportType: reportType,
+                  ),
             ),
           );
         } else {
@@ -54,10 +60,9 @@ class ReportSelectionScreen extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => ResultScreen(
-              imageBytes: imageBytes,
-              reportType: reportType,
-            ),
+            builder:
+                (context) =>
+                    ResultScreen(fileBytes: imageBytes, reportType: reportType),
           ),
         );
       }
@@ -99,7 +104,11 @@ class ReportSelectionScreen extends StatelessWidget {
               ),
               const SizedBox(height: 20),
               ListTile(
-                leading: const Icon(Icons.camera_alt, color: Colors.blue, size: 30),
+                leading: const Icon(
+                  Icons.camera_alt,
+                  color: Colors.blue,
+                  size: 30,
+                ),
                 title: const Text('Kamerayla Çek'),
                 onTap: () => _takePhoto(context, reportType),
               ),
@@ -107,6 +116,16 @@ class ReportSelectionScreen extends StatelessWidget {
                 leading: const Icon(Icons.image, color: Colors.red, size: 30),
                 title: const Text('Galeriden Görsel Seç'),
                 onTap: () => _pickFile(context, reportType),
+              ),
+              // PDF Seçeneği Buraya Eklendi
+              ListTile(
+                leading: const Icon(
+                  Icons.picture_as_pdf,
+                  color: Colors.orange,
+                  size: 30,
+                ),
+                title: const Text('Cihazdan PDF Seç'),
+                onTap: () => _pickPDF(context, reportType),
               ),
             ],
           ),
@@ -200,21 +219,66 @@ class ReportSelectionScreen extends StatelessWidget {
                   children: [
                     Text(
                       title,
-                      style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                      style: const TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                     const SizedBox(height: 4),
                     Text(
                       subtitle,
-                      style: TextStyle(fontSize: 14, color: Colors.grey.shade600),
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: Colors.grey.shade600,
+                      ),
                     ),
                   ],
                 ),
               ),
-              Icon(Icons.arrow_forward_ios, color: Colors.grey.shade400, size: 20),
+              Icon(
+                Icons.arrow_forward_ios,
+                color: Colors.grey.shade400,
+                size: 20,
+              ),
             ],
           ),
         ),
       ),
     );
+  }
+
+  Future<void> _pickPDF(BuildContext context, String reportType) async {
+    try {
+      final result = await FilePicker.platform.pickFiles(
+        type: FileType.custom,
+        allowedExtensions: ['pdf'], // Sadece PDF formatına izin veriyoruz
+        allowMultiple: false,
+        withData: true,
+      );
+
+      if (context.mounted && result != null && result.files.isNotEmpty) {
+        final file = result.files.first;
+        if (file.bytes != null) {
+          Navigator.pop(context); // Seçim ekranını kapat
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder:
+                  (context) => ResultScreen(
+                    fileBytes:
+                        file.bytes!, // ResultScreen artık fileBytes bekliyor
+                    reportType: reportType,
+                  ),
+            ),
+          );
+        } else {
+          _showError(context, 'PDF okunamadı (dosya boş olabilir).');
+        }
+      }
+    } catch (e) {
+      if (context.mounted) {
+        _showError(context, 'PDF seçilirken hata oluştu: $e');
+      }
+    }
   }
 }

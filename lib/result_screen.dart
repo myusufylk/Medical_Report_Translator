@@ -1,15 +1,14 @@
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
-import 'services/gemini_service.dart';
 
 class ResultScreen extends StatefulWidget {
-  final Uint8List imageBytes;
+  final Uint8List fileBytes; // Artık sadece resim değil, PDF de gelebilir
   final String reportType;
 
   const ResultScreen({
     super.key,
-    required this.imageBytes,
+    required this.fileBytes,
     required this.reportType,
   });
 
@@ -18,9 +17,8 @@ class ResultScreen extends StatefulWidget {
 }
 
 class _ResultScreenState extends State<ResultScreen> {
-  final GeminiService _geminiService = GeminiService();
-  String? _resultText;
   bool _isLoading = true;
+  String _translatedText = "";
 
   @override
   void initState() {
@@ -28,131 +26,145 @@ class _ResultScreenState extends State<ResultScreen> {
     _analyzeReport();
   }
 
+  // Yapay zeka sürecini simüle eden fonksiyon
   Future<void> _analyzeReport() async {
-    try {
-      final result = await _geminiService.analyzeReport(
-        widget.imageBytes,
-        widget.reportType,
-      );
-      if (mounted) {
-        setState(() {
-          _resultText = result;
-          _isLoading = false;
-        });
-      }
-    } catch (e) {
-      if (mounted) {
-        setState(() {
-          _resultText = 'Beklenmeyen bir hata oluştu:\\n$e';
-          _isLoading = false;
-        });
-      }
+    // Sprint 3'te buraya Gemini veya Kendi Modelimizin API isteği gelecek.
+    // Şimdilik 3 saniyelik bir yükleme süresi simüle ediyoruz.
+    await Future.delayed(const Duration(seconds: 3));
+
+    if (mounted) {
+      setState(() {
+        _isLoading = false;
+        // Yapay zekadan dönecek olan Markdown formatlı örnek metin:
+        _translatedText = """
+### 📋 Rapor Özeti: ${widget.reportType}
+
+Merhaba, raporunuzu inceledim. Tıbbi terimleri sizin için basitleştirdim:
+
+* **Lökosit (WBC):** Değerleriniz normal sınırların biraz üzerinde. Bu, vücudunuzun ufak bir enfeksiyonla savaştığı anlamına gelebilir.
+* **Hemoglobin (HGB):** Kanınızdaki oksijen taşıyan hücrelerin seviyesi gayet sağlıklı bir aralıkta.
+
+**💡 Önemli Not:** *Ben bir yapay zekâ asistanıyım, teşhis koyamam. Lütfen bu sonuçları kesinlikle kendi doktorunuzla da paylaşın.*
+""";
+      });
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.blue.shade50,
       appBar: AppBar(
-        title: const Text('Rapor Çeviri Sonucu'),
+        title: const Text('Analiz Sonucu'),
         centerTitle: true,
-        backgroundColor: Colors.blue.shade50,
+        backgroundColor: Colors.white,
+        foregroundColor: Colors.black,
+        elevation: 0,
       ),
-      body: _isLoading
-          ? const Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  CircularProgressIndicator(),
-                  SizedBox(height: 20),
-                  Text(
-                    'Raporunuz yapay zeka ile analiz ediliyor...',
-                    style: TextStyle(fontSize: 16, color: Colors.black54),
-                  ),
-                  SizedBox(height: 10),
-                  Text(
-                    'Lütfen bekleyin',
-                    style: TextStyle(fontSize: 14, color: Colors.blue),
+      body: _isLoading ? _buildLoadingView() : _buildResultView(),
+    );
+  }
+
+  // 1. EKRAN: YÜKLENİYOR ANİMASYONU
+  Widget _buildLoadingView() {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          // Sağlık temasına uygun dönen bir yükleme ikonu
+          Stack(
+            alignment: Alignment.center,
+            children: [
+              SizedBox(
+                width: 80,
+                height: 80,
+                child: CircularProgressIndicator(
+                  color: Colors.blue.shade700,
+                  strokeWidth: 6,
+                ),
+              ),
+              Icon(
+                Icons.medical_services,
+                color: Colors.blue.shade700,
+                size: 35,
+              ),
+            ],
+          ),
+          const SizedBox(height: 30),
+          const Text(
+            'Raporunuz analiz ediliyor...',
+            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+          ),
+          const SizedBox(height: 10),
+          Text(
+            'Tıbbi terimler halk diline çevriliyor\nLütfen bekleyin.',
+            textAlign: TextAlign.center,
+            style: TextStyle(fontSize: 16, color: Colors.grey.shade600),
+          ),
+        ],
+      ),
+    );
+  }
+
+  // 2. EKRAN: SONUÇ GÖSTERİMİ
+  Widget _buildResultView() {
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: Column(
+        children: [
+          Expanded(
+            child: Container(
+              width: double.infinity,
+              padding: const EdgeInsets.all(20),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(15),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.05),
+                    blurRadius: 10,
+                    spreadRadius: 2,
                   ),
                 ],
               ),
-            )
-          : Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                children: [
-                  // Rapor Önizleme Alanı
-                  Container(
-                    height: 150,
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(12),
-                      border: Border.all(color: Colors.blue.shade100, width: 2),
-                      image: DecorationImage(
-                        image: MemoryImage(widget.imageBytes),
-                        fit: BoxFit.cover,
-                      ),
-                    ),
+              // Markdown paketi sayesinde yapay zeka çıktısı kalın, italik ve listeler halinde şıkça görünür.
+              child: MarkdownBody(
+                data: _translatedText,
+                styleSheet: MarkdownStyleSheet(
+                  h3: TextStyle(
+                    color: Colors.blue.shade800,
+                    fontWeight: FontWeight.bold,
                   ),
-                  const SizedBox(height: 20),
-                  const Row(
-                    children: [
-                      Icon(Icons.auto_awesome, color: Colors.amber),
-                      SizedBox(width: 10),
-                      Text(
-                        'AI Çevirisi',
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ],
-                  ),
-                  const Divider(),
-                  const SizedBox(height: 10),
-                  // Markdown çıktısı için formatlanmış metin alanı
-                  Expanded(
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: Colors.blue.shade50.withOpacity(0.5),
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      child: Markdown(
-                        data: _resultText ?? '',
-                        styleSheet: MarkdownStyleSheet(
-                          p: const TextStyle(fontSize: 16, height: 1.5),
-                          h1: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-                          h2: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                          listBullet: const TextStyle(fontSize: 16),
-                        ),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 20),
-                  SizedBox(
-                    width: double.infinity,
-                    height: 50,
-                    child: ElevatedButton.icon(
-                      onPressed: () {
-                        Navigator.popUntil(context, (route) => route.isFirst);
-                      },
-                      icon: const Icon(Icons.home, color: Colors.white),
-                      label: const Text(
-                        'Yeni Rapor Çevir (Ana Menü)',
-                        style: TextStyle(fontSize: 16, color: Colors.white),
-                      ),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.blue.shade700,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
+                  p: const TextStyle(fontSize: 16, height: 1.5),
+                  listBullet: TextStyle(color: Colors.blue.shade600),
+                ),
               ),
             ),
+          ),
+          const SizedBox(height: 20),
+          // Gelecekte eklenecek olan "Sesli Oku" veya "PDF Olarak İndir" butonları için alan
+          SizedBox(
+            width: double.infinity,
+            height: 50,
+            child: ElevatedButton.icon(
+              onPressed: () {
+                Navigator.pop(context); // Ana menüye veya rapor seçimine dön
+              },
+              icon: const Icon(Icons.check_circle, color: Colors.white),
+              label: const Text(
+                'Tamamla',
+                style: TextStyle(color: Colors.white, fontSize: 16),
+              ),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.blue.shade700,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
