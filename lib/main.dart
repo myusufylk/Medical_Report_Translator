@@ -1,7 +1,18 @@
 import 'package:flutter/material.dart';
-import 'report_selection_screen.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart'; // .env için gerekli
+import 'login_screen.dart'; // Giriş ekranın
 
-void main() {
+void main() async {
+  // Uygulama başlamadan önce gerekli ayarları yapıyoruz
+  WidgetsFlutterBinding.ensureInitialized();
+
+  try {
+    // API anahtarı için .env dosyasını yüklüyoruz
+    await dotenv.load(fileName: ".env");
+  } catch (e) {
+    debugPrint(".env dosyası yüklenemedi, lütfen kontrol et: $e");
+  }
+
   runApp(const MedikalTercumanApp());
 }
 
@@ -11,100 +22,17 @@ class MedikalTercumanApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Medikal Tercüman',
-      debugShowCheckedModeBanner:
-          false, // Sağ üstteki çirkin 'Debug' etiketini kaldırır
+      title: 'Medikal Rapor Tercümanı',
+      debugShowCheckedModeBanner: false, // Sağ üstteki debug yazısını kaldırır
       theme: ThemeData(
-        // Sağlık uygulamasına yakışacak güven veren bir mavi tonu
+        // Sağlık temasına uygun ana renk paleti
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue.shade700),
         useMaterial3: true,
+        // Genel metin stillerini buradan da yönetebilirsin
+        fontFamily: 'Inter',
       ),
-      home: const HomeScreen(),
-    );
-  }
-}
-
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        title: const Text(
-          'Medikal Rapor Tercümanı',
-          style: TextStyle(fontWeight: FontWeight.bold),
-        ),
-        centerTitle: true,
-        backgroundColor: Colors.blue.shade50,
-      ),
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(24.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              // Temsili Logo / İkon
-              Icon(
-                Icons.medical_information,
-                size: 100,
-                color: Colors.blue.shade700,
-              ),
-              const SizedBox(height: 30),
-
-              const Text(
-                'Hoş Geldiniz',
-                style: TextStyle(
-                  fontSize: 28,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black87,
-                ),
-              ),
-              const SizedBox(height: 15),
-
-              const Text(
-                'Karmaşık tahlil ve epikriz raporlarınızı saniyeler içinde herkesin anlayabileceği günlük dile çevirin.',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 16,
-                  color: Colors.black54,
-                  height: 1.5,
-                ),
-              ),
-              const SizedBox(height: 50),
-
-              // Ana Aksiyon Butonu
-              SizedBox(
-                width: double.infinity, // Butonu ekranın genişliğine yayar
-                height: 55,
-                child: ElevatedButton.icon(
-                  onPressed: () {
-                    // 2. Ekrana (Rapor Seçimi) Geçiş Kodu
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const ReportSelectionScreen(),
-                      ),
-                    );
-                  },
-                  icon: const Icon(Icons.document_scanner, color: Colors.white),
-                  label: const Text(
-                    'Yeni Rapor Çevir',
-                    style: TextStyle(fontSize: 18, color: Colors.white),
-                  ),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.blue.shade700,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
+      // Uygulama artık her zaman Giriş Ekranı ile başlayacak
+      home: const LoginScreen(),
     );
   }
 }

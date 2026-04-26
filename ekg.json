@@ -1,0 +1,122 @@
+{
+    "Sinus_Ritmi": {
+        "tam_adi": "Sinüs Ritmi / Sinus Rhythm",
+        "kategori": "EKG",
+        "normal_aralik": "Her QRS kompleksinden önce bir P dalgası, düzenli R-R aralıkları, kalp hızı 60–100/dk",
+        "sade_aciklama": "Kalbin normal elektriksel ritmidir. Kalbin düzenli çalıştığını gösterir.",
+        "yuksekse": null,
+        "dusukse": null,
+        "anormal_durum": "Sinüs ritmi yoksa kalp, normal pacemaker bölgesinden (SA nod) uyarılmıyor demektir. Atriyal fibrilasyon, atriyal flutter veya nodal ritim gibi aritmi türleri söz konusu olabilir.",
+        "tehlikeli_deger": "Sinüs ritminin tamamen kaybolması ve düzensiz veya çok yavaş/hızlı bir ritimle yer değiştirmesi acil değerlendirme gerektirir."
+    },
+    "Kalp_Hizi": {
+        "tam_adi": "Kalp Hızı (Ventrikül Hızı) / Heart Rate (Ventricular Rate)",
+        "kategori": "EKG",
+        "normal_aralik": "60 – 100 atım/dakika",
+        "sade_aciklama": "Kalbinizin dakikada kaç kez attığını gösterir.",
+        "yuksekse": "Taşikardi (hızlı kalp atışı). Stres, ateş, anemi, hipertiroidizm, kalp hastalığı veya aritmi olabilir.",
+        "dusukse": "Bradikardi (yavaş kalp atışı). Sporcular için normal olabilir. İlaç etkisi, hipotiroidizm veya iletim bozukluğu da olabilir.",
+        "anormal_durum": "Düzensiz kalp hızı, aritmiyi düşündürür.",
+        "tehlikeli_deger": "< 40/dk (semptomatik bradikardi – hemodinamik instabilite) veya > 150/dk (hemodinamik olarak anlamlı taşikardi – acil müdahale gerektirebilir)"
+    },
+    "PR_Araligi": {
+        "tam_adi": "PR Aralığı (PR İntervali) / PR Interval",
+        "kategori": "EKG",
+        "normal_aralik": "120 – 200 ms (0,12 – 0,20 saniye)",
+        "sade_aciklama": "Elektriksel sinyalin kulakçıklardan karıncıklara iletilme süresini gösterir.",
+        "yuksekse": null,
+        "dusukse": null,
+        "anormal_durum": "PR aralığı > 200 ms ise 1. derece AV blok düşünülür. Progresif uzama ile düşen atım varsa 2. derece (Mobitz Tip I/Wenckebach) AV blok olabilir. PR aralığı < 120 ms ise pre-eksitasyon sendromu (WPW gibi) düşünülür.",
+        "tehlikeli_deger": "> 300 ms (ileri AV blok riski) veya < 100 ms delta dalgası ile birlikte (WPW sendromu – ani kardiyak arrest riski)"
+    },
+    "QRS_Suresi": {
+        "tam_adi": "QRS Süresi / QRS Duration",
+        "kategori": "EKG",
+        "normal_aralik": "80 – 120 ms (0,08 – 0,12 saniye)",
+        "sade_aciklama": "Kalbin alt odacıklarının (ventrikül) kasılma süresini gösterir.",
+        "yuksekse": null,
+        "dusukse": null,
+        "anormal_durum": "QRS > 120 ms ise dal bloğu (sağ veya sol), intraventriküler iletim gecikmesi veya ventriküler kaynaklı ritim düşünülür. Geniş QRS, elektrolit bozukluklarında da görülebilir.",
+        "tehlikeli_deger": "> 200 ms (ventriküler taşikardi veya ciddi iletim bozukluğu – acil müdahale gerektirir)"
+    },
+    "QT_QTc_Araligi": {
+        "tam_adi": "QT/QTc Aralığı / QT/QTc Interval",
+        "kategori": "EKG",
+        "normal_aralik": "QTc: Erkek < 450 ms; Kadın < 470 ms",
+        "sade_aciklama": "Kalbin elektriksel toparlanma süresini gösterir. Uzun QT aralığı tehlikeli ritim bozukluklarına yol açabilir.",
+        "yuksekse": null,
+        "dusukse": null,
+        "anormal_durum": "QTc uzaması – bazı ilaçlar (antiaritmikler, antidepresanlar, antibiyotikler), elektrolit bozuklukları (hipokalsemi, hipokalemi, hipomagnezemi) veya konjenital uzun QT sendromu olabilir. Kısa QT – hiperkalsemi veya nadir genetik sendromlar düşünülür.",
+        "tehlikeli_deger": "QTc > 500 ms (Torsades de Pointes ve ani kardiyak ölüm riski – ilacın kesilmesi ve acil müdahale gerekir)"
+    },
+    "ST_Segment": {
+        "tam_adi": "ST Segmenti / ST Segment",
+        "kategori": "EKG",
+        "normal_aralik": "İzoelektrik hatta (bazal çizgiye) düz olmalıdır; ≤ 1 mm elevasyon veya depresyon normal kabul edilebilir",
+        "sade_aciklama": "Kalp kasına yeterli kan gidip gitmediğini gösteren önemli bir EKG bölgesidir.",
+        "yuksekse": null,
+        "dusukse": null,
+        "anormal_durum": "ST elevasyonu – akut miyokard enfarktüsü (kalp krizi), perikardit veya erken repolarizasyon olabilir. ST depresyonu – iskemi (kalbe yetersiz kan gitmesi), dijital etkisi veya sol ventrikül hipertrofisi düşünülebilir.",
+        "tehlikeli_deger": "≥ 2 mm ST elevasyonu ardışık iki derivasyonda (STEMI – acil kardiyoloji konsültasyonu ve koroner anjiyografi/PKG gerektirir)"
+    },
+    "P_Dalgasi": {
+        "tam_adi": "P Dalgası / P Wave",
+        "kategori": "EKG",
+        "normal_aralik": "Süre: < 120 ms; Yükseklik: < 2,5 mm (DII derivasyonunda); her QRS'den önce bir P dalgası bulunmalıdır",
+        "sade_aciklama": "Kalbin üst odacıklarının (kulakçıklar) elektriksel aktivitesini gösterir.",
+        "yuksekse": null,
+        "dusukse": null,
+        "anormal_durum": "P dalgasının yokluğu – atriyal fibrilasyon veya sino-atriyal blok düşündürür. Geniş veya çentikli P dalgası (P mitrale) – sol atriyal büyüme. Sivri ve yüksek P dalgası (P pulmonale) – sağ atriyal büyüme.",
+        "tehlikeli_deger": "P dalgası olmadan düzensiz ritim + hızlı ventrikül yanıtı (atriyal fibrilasyon ile hemodinamik instabilite – acil müdahale gerekir)"
+    },
+    "T_Dalgasi": {
+        "tam_adi": "T Dalgası / T Wave",
+        "kategori": "EKG",
+        "normal_aralik": "DI, DII, V3-V6'da pozitif; aVR'de negatif; genellikle QRS ile aynı yönde",
+        "sade_aciklama": "Kalp kasının elektriksel toparlanmasını gösterir.",
+        "yuksekse": null,
+        "dusukse": null,
+        "anormal_durum": "T dalgası inversiyonu – miyokard iskemisi, miyokard enfarktüsü, pulmoner emboli, kardiyomiyopati veya intrakranyal olay düşündürebilir. Sivri (tented) T dalgası – hiperkalemi belirtisi olabilir. Düzleşmiş T dalgası – hipokalemi düşündürebilir.",
+        "tehlikeli_deger": "Yaygın derin T inversiyonu veya sivri T dalgaları + klinik semptomlar (akut koroner sendrom veya ciddi hiperkalemi – acil değerlendirme gerektirir)"
+    },
+    "Atriyal_Fibrilasyon": {
+        "tam_adi": "Atriyal Fibrilasyon / Atrial Fibrillation (AF/AFib)",
+        "kategori": "EKG",
+        "normal_aralik": "Atriyal fibrilasyon, anormal bir ritimdir. Normal EKG'de bulunmamalıdır.",
+        "sade_aciklama": "Kalbin üst odacıklarının düzensiz ve çok hızlı titreşmesiyle oluşan en sık görülen ritim bozukluğudur.",
+        "yuksekse": null,
+        "dusukse": null,
+        "anormal_durum": "Düzensiz R-R aralıkları ve belirgin P dalgası yokluğu ile tanınır. Pıhtı oluşumu ve inme riskini artırır. Hipertansiyon, kalp kapak hastalığı, hipertiroidizm, alkol kullanımı veya kalp yetmezliği ile ilişkili olabilir.",
+        "tehlikeli_deger": "Ventrikül hızı > 150/dk ile hemodinamik instabilite (hipotansiyon, göğüs ağrısı, nefes darlığı) – acil kardiyoversiyon gerekebilir"
+    },
+    "Dal_Blogu": {
+        "tam_adi": "Dal Bloğu (Sağ/Sol) / Bundle Branch Block (Right/Left BBB)",
+        "kategori": "EKG",
+        "normal_aralik": "Normal EKG'de dal bloğu bulunmamalıdır. QRS süresi < 120 ms olmalıdır.",
+        "sade_aciklama": "Kalbin elektriksel iletim yollarından birinde gecikme veya tıkanıklık olduğunu gösterir.",
+        "yuksekse": null,
+        "dusukse": null,
+        "anormal_durum": "Sağ dal bloğu (RBBB) – sağlıklı bireylerde görülebilir; pulmoner emboli, sağ kalp yükü veya konjenital kalp hastalığı olabilir. Sol dal bloğu (LBBB) – genellikle altta yatan kardiyak patolojiyi düşündürür; koroner arter hastalığı, hipertansiyon, kardiyomiyopati veya aort darlığı olabilir. Yeni başlayan LBBB acil değerlendirme gerektirir.",
+        "tehlikeli_deger": "Yeni başlayan LBBB + göğüs ağrısı (akut miyokard enfarktüsü eşdeğeri kabul edilir – acil koroner anjiyografi gerektirir)"
+    },
+    "Sol_Ventrikul_Hipertrofisi": {
+        "tam_adi": "Sol Ventrikül Hipertrofisi / Left Ventricular Hypertrophy (LVH)",
+        "kategori": "EKG",
+        "normal_aralik": "Normal EKG'de LVH bulguları bulunmamalıdır.",
+        "sade_aciklama": "Kalbin sol alt odacığının (sol ventrikül) normalden kalın olduğunu gösteren bir EKG bulgusudur.",
+        "yuksekse": null,
+        "dusukse": null,
+        "anormal_durum": "Sokolow-Lyon kriterleri (SV1 + RV5 veya RV6 > 35 mm) veya Cornell kriterleri (SV3 + RaVL > 28 mm erkek, > 20 mm kadın) ile tanınır. Uzun süreli hipertansiyon, aort darlığı, hipertrofik kardiyomiyopati veya sporcu kalbi ile ilişkili olabilir. ST-T değişiklikleri eşlik edebilir.",
+        "tehlikeli_deger": "LVH + ST-T değişiklikleri + semptomlar (göğüs ağrısı, nefes darlığı) – kardiyomiyopati veya ciddi aort darlığı açısından acil ekokardiyografi gerektirir"
+    },
+    "Bradikardi_Tasikardi": {
+        "tam_adi": "Bradikardi ve Taşikardi / Bradycardia and Tachycardia",
+        "kategori": "EKG",
+        "normal_aralik": "Normal kalp hızı: 60 – 100 atım/dakika. Bradikardi: < 60/dk; Taşikardi: > 100/dk",
+        "sade_aciklama": "Bradikardi kalbinizin normalden yavaş, taşikardi ise normalden hızlı attığını gösterir.",
+        "yuksekse": null,
+        "dusukse": null,
+        "anormal_durum": "Bradikardi – sporcular için fizyolojik olabilir; ilaç etkisi (beta-blokerler, kalsiyum kanal blokerleri), hipotiroidizm, hasta sinüs sendromu veya AV blok olabilir. Taşikardi – sinüs taşikardisi (ateş, anemi, stres), supraventriküler taşikardi (SVT), ventriküler taşikardi (VT), atriyal fibrilasyon/flutter olabilir.",
+        "tehlikeli_deger": "Bradikardi < 40/dk + semptomlar (senkop, hipotansiyon) – acil geçici pacing gerekebilir. Taşikardi > 150/dk + hemodinamik instabilite – acil kardiyoversiyon gerekebilir. Ventriküler taşikardi – acil müdahale gerektirir."
+    }
+}
