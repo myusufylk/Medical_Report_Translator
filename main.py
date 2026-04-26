@@ -1,53 +1,96 @@
-from fastapi import FastAPI
-from sqlalchemy import text
-from database import engine, Base, SessionLocal
+from fastapi import FastAPI, File, UploadFile, Depends, HTTPException
+from sqlalchemy.orm import Session
+from database import Base, engine, get_db
 import models
+import shutil
+import os
+import uuid
+print(" CALISAN MAIN:", os.path.abspath(__file__))
+
+
+from ocr import extract_text, extract_lab_values
 
 app = FastAPI()
 
-
 Base.metadata.create_all(bind=engine)
+
+UPLOAD_FOLDER = "uploads"
+os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
 
 @app.get("/")
-def read_root():
-    return {"message": "Backend çalışıyor"}
+def root():
+    return {"message": "API çalışıyor"}
 
 
-@app.get("/test-db")
-def test_db():
+@app.post("/ocr-new")
+async def ocr_file(
+    file: UploadFile = File(...),
+    db: Session = Depends(get_db)
+):
+    file_path = None
+
     try:
-        db = SessionLocal()
-        result = db.execute(text("SELECT version();"))
-        version = result.fetchone()[0]
-        db.close()
+
+        allowed_types = ["image/jpeg", "image/png", "application/pdf"]
+        if file.content_type not in allowed_types:
+            raise HTTPException(status_code=400, detail="Desteklenmeyen dosya tipi")
+
+
+        unique_name = f"{uuid.uuid4()}_{file.filename}"
+        file_path = os.path.join(UPLOAD_FOLDER, unique_name)
+
+        with open(file_path, "wb") as buffer:
+            shutil.copyfileobj(file.file, buffer)
+
+
+        text = extract_text(file_path)
+
+        if not text or len(text.strip()) < 10:
+            raise HTTPException(status_code=400, detail="OCR metni boş")
+
+        print("OCR TEXT LENGTH:", len(text))
+
+
+        parsed_data = extract_lab_values(text)
+
+
+        new_report = models.Report(
+            user_id=1,
+            report_type="other",
+            report_name=file.filename,
+            file_path=file_path,
+            original_text=text,
+            summary_text=None
+        )
+
+        db.add(new_report)
+        db.commit()
+        db.refresh(new_report)
+
 
         return {
-            "database": "connected",
-            "version": version
+            "report_id": new_report.id,
+            "filename": file.filename,
+
+            # satır satır
+            "text_lines": [line for line in text.split("\n") if line.strip()],
+
+
+            "parsed_data": parsed_data
         }
+
+    except HTTPException as e:
+        raise e
+
     except Exception as e:
-        return {
-            "database": "error",
-            "detail": str(e)
-        }
+        print("ERROR:", str(e))
+        raise HTTPException(status_code=500, detail=str(e))
 
+    finally:
 
-@app.get("/tables")
-def check_tables():
-    try:
-        db = SessionLocal()
-
-        result = db.execute(text("""
-            SELECT table_name
-            FROM information_schema.tables
-            WHERE table_schema = 'public'
-            ORDER BY table_name;
-        """))
-
-        tables = [row[0] for row in result.fetchall()]
-        db.close()
-
-        return {"tables": tables}
-    except Exception as e:
-        return {"error": str(e)}
+        if file_path and os.path.exists(file_path):
+            try:
+                os.remove(file_path)
+            except Exception as cleanup_error:
+                print("File cleanup error:", cleanup_error)
