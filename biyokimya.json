@@ -1,0 +1,162 @@
+{
+    "Glukoz": {
+        "tam_adi": "Açlık Kan Şekeri (Glukoz) / Fasting Blood Glucose",
+        "kategori": "Biyokimya",
+        "normal_aralik": "70 – 100 mg/dL (açlık, her iki cinsiyet için)",
+        "sade_aciklama": "Kanınızdaki şeker seviyesini gösterir. Vücudunuzun enerji kaynağıdır.",
+        "yuksekse": "Diyabet veya prediyabet düşünülebilir. Stres, enfeksiyon veya bazı ilaçlar da geçici olarak yükseltebilir.",
+        "dusukse": "Hipoglisemi (düşük kan şekeri) belirtisidir. Aşırı açlık, insülin fazlalığı, karaciğer hastalığı veya bazı hormonal bozukluklar olabilir.",
+        "anormal_durum": null,
+        "tehlikeli_deger": "< 40 mg/dL (bilinç kaybı riski) veya > 400 mg/dL (diyabetik ketoasidoz veya hiperozmolar koma riski)"
+    },
+    "HbA1c": {
+        "tam_adi": "Glikozile Hemoglobin / Glycated Hemoglobin (HbA1c)",
+        "kategori": "Biyokimya",
+        "normal_aralik": "< %5,7 normal; %5,7 – %6,4 prediyabet; ≥ %6,5 diyabet",
+        "sade_aciklama": "Son 2-3 aylık ortalama kan şekeri düzeyinizi gösterir. Diyabet takibinde en önemli testtir.",
+        "yuksekse": "Kan şekerinin uzun süre yüksek seyrettiğini gösterir. Diyabet tanı veya kontrol yetersizliği düşünülür.",
+        "dusukse": "Hipoglisemik atakların sık olduğunu, anemi veya hemoglobin bozukluklarını düşündürebilir.",
+        "anormal_durum": null,
+        "tehlikeli_deger": "> %10 (ciddi diyabet komplikasyonu riski – acil tedavi düzenlemesi gerektirir)"
+    },
+    "Ure": {
+        "tam_adi": "Üre (Kan Üre Azotu) / Blood Urea Nitrogen (BUN)",
+        "kategori": "Biyokimya",
+        "normal_aralik": "17 – 43 mg/dL (her iki cinsiyet için)",
+        "sade_aciklama": "Böbreklerinizin protein atıklarını ne kadar iyi temizlediğini gösteren bir değerdir.",
+        "yuksekse": "Böbrek fonksiyon bozukluğu, dehidrasyon, yüksek proteinli beslenme, gastrointestinal kanama veya kalp yetmezliği düşünülebilir.",
+        "dusukse": "Karaciğer hastalığı, düşük proteinli beslenme veya aşırı sıvı alımı olabilir.",
+        "anormal_durum": null,
+        "tehlikeli_deger": "> 100 mg/dL (ciddi böbrek yetmezliği – diyaliz gerekebilir)"
+    },
+    "Kreatinin": {
+        "tam_adi": "Kreatinin / Creatinine",
+        "kategori": "Biyokimya",
+        "normal_aralik": "Erkek: 0,7 – 1,3 mg/dL; Kadın: 0,6 – 1,1 mg/dL",
+        "sade_aciklama": "Böbreklerinizin ne kadar iyi çalıştığını gösteren en önemli parametrelerden biridir.",
+        "yuksekse": "Böbrek fonksiyon bozukluğu, dehidrasyon, yoğun kas yıkımı veya bazı ilaçların yan etkisi olabilir.",
+        "dusukse": "Genellikle klinik önemi azdır. Düşük kas kütlesi veya ileri yaş ile ilişkili olabilir.",
+        "anormal_durum": null,
+        "tehlikeli_deger": "> 4,0 mg/dL (ciddi böbrek yetmezliği – acil nefroloji konsültasyonu ve diyaliz değerlendirmesi gerekir)"
+    },
+    "ALT": {
+        "tam_adi": "Alanin Aminotransferaz / Alanine Aminotransferase (ALT/SGPT)",
+        "kategori": "Biyokimya",
+        "normal_aralik": "Erkek: 7 – 56 U/L; Kadın: 7 – 45 U/L",
+        "sade_aciklama": "Karaciğer hasarını gösteren en spesifik enzimlerden biridir.",
+        "yuksekse": "Karaciğer iltihabı (hepatit), yağlı karaciğer, alkol hasarı, ilaç toksisitesi veya karaciğer hastalıkları düşünülebilir.",
+        "dusukse": "Genellikle klinik önemi yoktur.",
+        "anormal_durum": null,
+        "tehlikeli_deger": "> 1.000 U/L (akut karaciğer hasarı – acil değerlendirme gerekir)"
+    },
+    "AST": {
+        "tam_adi": "Aspartat Aminotransferaz / Aspartate Aminotransferase (AST/SGOT)",
+        "kategori": "Biyokimya",
+        "normal_aralik": "10 – 40 U/L (her iki cinsiyet için)",
+        "sade_aciklama": "Karaciğer ve kalp başta olmak üzere kas dokusundaki hasarı gösterebilen bir enzimdir.",
+        "yuksekse": "Karaciğer hastalığı, kalp krizi, kas hasarı, yoğun egzersiz veya ilaç toksisitesi olabilir.",
+        "dusukse": "Genellikle klinik önemi yoktur.",
+        "anormal_durum": null,
+        "tehlikeli_deger": "> 1.000 U/L (akut karaciğer hasarı veya kalp krizi – acil değerlendirme gerekir)"
+    },
+    "ALP": {
+        "tam_adi": "Alkalen Fosfataz / Alkaline Phosphatase",
+        "kategori": "Biyokimya",
+        "normal_aralik": "44 – 147 U/L (yetişkin, her iki cinsiyet için; çocuklarda daha yüksek olabilir)",
+        "sade_aciklama": "Karaciğer ve kemiklerle ilgili sorunları gösterebilen bir enzimdir.",
+        "yuksekse": "Safra yolu tıkanıklığı, karaciğer hastalığı, kemik hastalıkları (Paget hastalığı gibi), gebelik veya büyüme döneminde normal olarak yüksek olabilir.",
+        "dusukse": "Çinko veya magnezyum eksikliği, hipotiroidizm veya bazı nadir genetik hastalıklar olabilir.",
+        "anormal_durum": null,
+        "tehlikeli_deger": "> 500 U/L (safra yolu tıkanıklığı veya ciddi kemik/karaciğer hastalığı araştırılmalıdır)"
+    },
+    "GGT": {
+        "tam_adi": "Gama-Glutamil Transferaz / Gamma-Glutamyl Transferase",
+        "kategori": "Biyokimya",
+        "normal_aralik": "Erkek: 8 – 61 U/L; Kadın: 5 – 36 U/L",
+        "sade_aciklama": "Karaciğer ve safra yolu sorunlarını gösteren bir enzimdir. Özellikle alkol hasarına duyarlıdır.",
+        "yuksekse": "Alkol kullanımı, karaciğer hastalığı, safra yolu tıkanıklığı, bazı ilaçlar veya pankreas hastalığı olabilir.",
+        "dusukse": "Genellikle klinik önemi yoktur.",
+        "anormal_durum": null,
+        "tehlikeli_deger": "> 500 U/L (ciddi karaciğer veya safra yolu hastalığı – acil değerlendirme gerektirir)"
+    },
+    "Total_Kolesterol": {
+        "tam_adi": "Total Kolesterol / Total Cholesterol",
+        "kategori": "Biyokimya",
+        "normal_aralik": "< 200 mg/dL istenen; 200–239 mg/dL sınırda yüksek; ≥ 240 mg/dL yüksek",
+        "sade_aciklama": "Kanınızdaki toplam yağ (kolesterol) seviyesini gösterir. Kalp ve damar sağlığını değerlendirmede önemlidir.",
+        "yuksekse": "Kalp hastalığı ve damar tıkanıklığı riski artar. Beslenme, genetik yatkınlık, hipotiroidizm veya karaciğer hastalığı olabilir.",
+        "dusukse": "Yetersiz beslenme, hipertiroidizm, karaciğer hastalığı veya malabsorpsiyon düşünülebilir.",
+        "anormal_durum": null,
+        "tehlikeli_deger": "> 300 mg/dL (ciddi kardiyovasküler risk – acil tedavi planlanmalıdır)"
+    },
+    "LDL": {
+        "tam_adi": "Düşük Yoğunluklu Lipoprotein / Low-Density Lipoprotein",
+        "kategori": "Biyokimya",
+        "normal_aralik": "< 100 mg/dL optimal; 100–129 mg/dL normale yakın; 130–159 mg/dL sınırda yüksek; ≥ 160 mg/dL yüksek",
+        "sade_aciklama": "Kötü kolesterol olarak bilinen yağ tipidir. Damarlarda birikerek tıkanıklığa yol açabilir.",
+        "yuksekse": "Ateroskleroz (damar sertliği), kalp krizi ve inme riski artar. Beslenme, genetik, diyabet veya hipotiroidizm olabilir.",
+        "dusukse": "Genellikle istenen bir durumdur. Çok düşükse malabsorpsiyon veya karaciğer hastalığı olabilir.",
+        "anormal_durum": null,
+        "tehlikeli_deger": "> 190 mg/dL (çok yüksek kardiyovasküler risk – agresif tedavi gerektirir)"
+    },
+    "HDL": {
+        "tam_adi": "Yüksek Yoğunluklu Lipoprotein / High-Density Lipoprotein",
+        "kategori": "Biyokimya",
+        "normal_aralik": "Erkek: > 40 mg/dL; Kadın: > 50 mg/dL (≥ 60 mg/dL koruyucu kabul edilir)",
+        "sade_aciklama": "İyi kolesterol olarak bilinen yağ tipidir. Damarları temizleyerek kalbi korur.",
+        "yuksekse": "Genellikle olumlu bir durumdur ve kardiyovasküler koruma sağlar.",
+        "dusukse": "Kalp hastalığı riski artar. Hareketsiz yaşam, sigara, obezite, metabolik sendrom veya genetik yatkınlık olabilir.",
+        "anormal_durum": null,
+        "tehlikeli_deger": "< 20 mg/dL (ciddi kardiyovasküler risk)"
+    },
+    "Trigliserid": {
+        "tam_adi": "Trigliserid / Triglycerides",
+        "kategori": "Biyokimya",
+        "normal_aralik": "< 150 mg/dL normal; 150–199 mg/dL sınırda yüksek; 200–499 mg/dL yüksek; ≥ 500 mg/dL çok yüksek",
+        "sade_aciklama": "Kanınızdaki başlıca yağ türüdür. Yemeklerden alınan fazla enerji trigliseride dönüştürülür.",
+        "yuksekse": "Kalp hastalığı riski artar. Obezite, diyabet, aşırı karbonhidrat/alkol tüketimi veya hipotiroidizm olabilir.",
+        "dusukse": "Genellikle klinik önemi yoktur. Malabsorpsiyon veya hipertiroidizm düşünülebilir.",
+        "anormal_durum": null,
+        "tehlikeli_deger": "> 500 mg/dL (akut pankreatit riski – acil tedavi gerektirir)"
+    },
+    "TSH": {
+        "tam_adi": "Tiroid Stimüle Edici Hormon / Thyroid Stimulating Hormone",
+        "kategori": "Biyokimya",
+        "normal_aralik": "0,4 – 4,0 mIU/L (her iki cinsiyet için)",
+        "sade_aciklama": "Tiroid bezinizin ne kadar aktif çalıştığını gösteren hormon düzeyidir.",
+        "yuksekse": "Hipotiroidizm (tiroid bezinin az çalışması) düşünülebilir. Halsizlik, kilo alımı ve üşüme gibi belirtiler eşlik edebilir.",
+        "dusukse": "Hipertiroidizm (tiroid bezinin aşırı çalışması) düşünülebilir. Çarpıntı, kilo kaybı ve sinirlilik gibi belirtiler olabilir.",
+        "anormal_durum": null,
+        "tehlikeli_deger": "> 50 mIU/L (miksödem koması riski) veya < 0,01 mIU/L (tiroid fırtınası riski)"
+    },
+    "CRP": {
+        "tam_adi": "C-Reaktif Protein / C-Reactive Protein",
+        "kategori": "Biyokimya",
+        "normal_aralik": "< 5 mg/L (standart CRP); < 1 mg/L düşük risk, 1–3 mg/L orta risk, > 3 mg/L yüksek risk (hs-CRP için)",
+        "sade_aciklama": "Vücudunuzdaki iltihaplanma düzeyini gösteren bir belirteçtir.",
+        "yuksekse": "Enfeksiyon, iltihap, otoimmün hastalık, doku hasarı veya kardiyovasküler risk artışı düşünülebilir.",
+        "dusukse": "Normal bir durumdur ve iltihap olmadığını gösterir.",
+        "anormal_durum": null,
+        "tehlikeli_deger": "> 100 mg/L (ciddi bakteriyel enfeksiyon veya sepsis – acil değerlendirme gerektirir)"
+    },
+    "Sodyum": {
+        "tam_adi": "Sodyum / Sodium (Na)",
+        "kategori": "Biyokimya",
+        "normal_aralik": "136 – 145 mEq/L (her iki cinsiyet için)",
+        "sade_aciklama": "Vücudunuzdaki sıvı dengesini ve sinir-kas fonksiyonlarını düzenleyen önemli bir mineraldir.",
+        "yuksekse": "Hipernatremi – dehidrasyon, aşırı tuz alımı, diabetes insipidus veya böbrek hastalığı olabilir.",
+        "dusukse": "Hiponatremi – aşırı sıvı alımı, kalp yetmezliği, karaciğer sirozu, böbrek hastalığı veya bazı ilaçlar (diüretikler gibi) olabilir.",
+        "anormal_durum": null,
+        "tehlikeli_deger": "< 120 mEq/L (nöbet ve beyin ödemi riski) veya > 160 mEq/L (bilinç değişikliği ve koma riski)"
+    },
+    "Potasyum": {
+        "tam_adi": "Potasyum / Potassium (K)",
+        "kategori": "Biyokimya",
+        "normal_aralik": "3,5 – 5,0 mEq/L (her iki cinsiyet için)",
+        "sade_aciklama": "Kalp ritmi, kas fonksiyonu ve sinir iletimi için hayati öneme sahip bir mineraldir.",
+        "yuksekse": "Hiperkalemi – böbrek yetmezliği, bazı ilaçlar (ACE inhibitörleri, potasyum tutucu diüretikler), asidoz veya aşırı potasyum alımı olabilir.",
+        "dusukse": "Hipokalemi – kusma, ishal, diüretik kullanımı veya yetersiz beslenme olabilir. Kas güçsüzlüğü ve kramplar görülebilir.",
+        "anormal_durum": null,
+        "tehlikeli_deger": "< 2,5 mEq/L (kardiyak arrest riski) veya > 6,5 mEq/L (ölümcül kardiyak aritmi riski – acil tedavi gerektirir)"
+    }
+}
