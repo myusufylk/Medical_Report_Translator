@@ -21,6 +21,10 @@ class _ResultScreenState extends State<ResultScreen> {
   bool _isLoading = false;
   late MedicalReport _currentReport;
 
+  // TTS ve PDF için değişkenler
+  final FlutterTts _flutterTts = FlutterTts();
+  bool _isSpeaking = false;
+
   @override
   void initState() {
     super.initState();
@@ -86,6 +90,12 @@ class _ResultScreenState extends State<ResultScreen> {
         });
       }
     }
+  }
+
+  @override
+  void dispose() {
+    _flutterTts.stop(); // Sayfadan çıkınca sesi durdur
+    super.dispose();
   }
 
   @override
