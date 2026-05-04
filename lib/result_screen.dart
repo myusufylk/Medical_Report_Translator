@@ -94,7 +94,7 @@ class _ResultScreenState extends State<ResultScreen> {
               pw.Divider(),
               pw.Text(
                 "Not: Bu analiz yapay zeka tarafından asistanlık amacıyla üretilmiştir. Lütfen doktorunuza danışın.",
-                style: const pw.TextStyle(fontSize: 10),
+                style: pw.TextStyle(fontSize: 10),
               ),
             ],
           );
