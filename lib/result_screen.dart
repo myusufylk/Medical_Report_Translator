@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
+import 'package:flutter_tts/flutter_tts.dart';
 import 'package:path_provider/path_provider.dart';
 import 'report_model.dart';
 import 'services/api_service.dart';
@@ -21,9 +22,8 @@ class _ResultScreenState extends State<ResultScreen> {
   bool _isLoading = false;
   late MedicalReport _currentReport;
 
-  // TTS ve PDF için değişkenler
+  // TTS değişkeni
   final FlutterTts _flutterTts = FlutterTts();
-  bool _isSpeaking = false;
 
   @override
   void initState() {
@@ -70,10 +70,10 @@ class _ResultScreenState extends State<ResultScreen> {
         });
       }
     } catch (e, stacktrace) {
-      print("****************************************");
-      print("HATA OLUŞTU: $e");
-      print("HATA KAYNAĞI: $stacktrace");
-      print("****************************************");
+      debugPrint("****************************************");
+      debugPrint("HATA OLUŞTU: $e");
+      debugPrint("HATA KAYNAĞI: $stacktrace");
+      debugPrint("****************************************");
 
       if (mounted) {
         setState(() {
