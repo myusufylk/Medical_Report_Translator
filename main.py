@@ -1,6 +1,7 @@
-from fastapi import FastAPI, File, UploadFile, Depends, HTTPException
+from fastapi import FastAPI, File, UploadFile, Depends, HTTPException, Form
 from sqlalchemy.orm import Session
 from database import Base, engine, get_db
+from models import BloodTestReport, EpicrisisReport, EKGReport
 import models
 import shutil
 import os
@@ -26,6 +27,7 @@ def root():
 @app.post("/ocr-new")
 async def ocr_file(
     file: UploadFile = File(...),
+    report_type: str = Form(...),
     db: Session = Depends(get_db)
 ):
     file_path = None
@@ -57,7 +59,7 @@ async def ocr_file(
 
         new_report = models.Report(
             user_id=1,
-            report_type="other",
+            report_type=report_type,
             report_name=file.filename,
             file_path=file_path,
             original_text=text,
@@ -65,18 +67,75 @@ async def ocr_file(
         )
 
         db.add(new_report)
-        db.commit()
+        db.flush()
         db.refresh(new_report)
+
+        if report_type == "Kan Tahlili":
+
+            blood_test = BloodTestReport(
+                report_id=new_report.id,
+
+                hemoglobin=str(
+                    parsed_data.get("hgb", {}).get("value", "")
+                ),
+
+                wbc=str(
+                    parsed_data.get("wbc", {}).get("value", "")
+                ),
+
+                rbc=str(
+                    parsed_data.get("rbc", {}).get("value", "")
+                ),
+
+                platelet=str(
+                    parsed_data.get("plt", {}).get("value", "")
+                ),
+            )
+
+            db.add(blood_test)
+
+
+
+
+        elif report_type == "Epikriz Raporu":
+
+            epicrisis = EpicrisisReport(
+                report_id=new_report.id,
+
+                diagnosis=text[:300],
+                treatment="",
+                discharge_summary="",
+                doctor_notes=""
+            )
+
+            db.add(epicrisis)
+
+
+
+        
+        elif report_type == "EKG Metin Raporu":
+
+            ekg = EKGReport(
+                report_id=new_report.id,
+
+                heart_rate="",
+                rhythm="",
+                pr_interval="",
+                qrs_duration="",
+                qt_qtc="",
+                interpretation=text[:300]
+            )
+
+            db.add(ekg)
+
+        db.commit()
 
 
         return {
             "report_id": new_report.id,
             "filename": file.filename,
-
-            # satır satır
+            "report_type": report_type,
             "text_lines": [line for line in text.split("\n") if line.strip()],
-
-
             "parsed_data": parsed_data
         }
 
