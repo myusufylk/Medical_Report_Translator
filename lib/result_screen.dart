@@ -1,169 +1,239 @@
+import 'dart:io';
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
+import 'package:flutter_tts/flutter_tts.dart';
+import 'package:path_provider/path_provider.dart';
+import 'report_model.dart';
+import 'services/api_service.dart';
 
 class ResultScreen extends StatefulWidget {
-  final Uint8List fileBytes; // Artık sadece resim değil, PDF de gelebilir
-  final String reportType;
+  final MedicalReport? report;
+  final Uint8List? fileBytes;
+  final String? reportType;
 
-  const ResultScreen({
-    super.key,
-    required this.fileBytes,
-    required this.reportType,
-  });
+  const ResultScreen({super.key, this.report, this.fileBytes, this.reportType});
 
   @override
   State<ResultScreen> createState() => _ResultScreenState();
 }
 
 class _ResultScreenState extends State<ResultScreen> {
-  bool _isLoading = true;
-  String _translatedText = "";
+  bool _isLoading = false;
+  late MedicalReport _currentReport;
+
+  // TTS değişkeni
+  final FlutterTts _flutterTts = FlutterTts();
 
   @override
   void initState() {
     super.initState();
-    _analyzeReport();
+    if (widget.report != null) {
+      _currentReport = widget.report!;
+      _isLoading = false;
+    } else {
+      _isLoading = true;
+      _analyzeReport();
+    }
   }
 
-  // Yapay zeka sürecini simüle eden fonksiyon
   Future<void> _analyzeReport() async {
-    // Sprint 3'te buraya Gemini veya Kendi Modelimizin API isteği gelecek.
-    // Şimdilik 3 saniyelik bir yükleme süresi simüle ediyoruz.
-    await Future.delayed(const Duration(seconds: 3));
+    try {
+      // 1. Dosya türünü baytlardan anla (PDF imzası: %PDF)
+      final bool isPdf =
+          widget.fileBytes!.length > 4 &&
+          widget.fileBytes![0] == 0x25 &&
+          widget.fileBytes![1] == 0x50 &&
+          widget.fileBytes![2] == 0x44 &&
+          widget.fileBytes![3] == 0x46;
 
-    if (mounted) {
-      setState(() {
-        _isLoading = false;
-        // Yapay zekadan dönecek olan Markdown formatlı örnek metin:
-        _translatedText = """
-### 📋 Rapor Özeti: ${widget.reportType}
+      final String extension = isPdf ? "pdf" : "jpg";
 
-Merhaba, raporunuzu inceledim. Tıbbi terimleri sizin için basitleştirdim:
+      // 2. Geçici dizini al ve doğru uzantıyla dosyayı oluştur
+      final tempDir = await getTemporaryDirectory();
+      final tempFile = File('${tempDir.path}/temp_report.$extension');
 
-* **Lökosit (WBC):** Değerleriniz normal sınırların biraz üzerinde. Bu, vücudunuzun ufak bir enfeksiyonla savaştığı anlamına gelebilir.
-* **Hemoglobin (HGB):** Kanınızdaki oksijen taşıyan hücrelerin seviyesi gayet sağlıklı bir aralıkta.
+      // 3. Bayt verisini dosyaya yaz
+      await tempFile.writeAsBytes(widget.fileBytes!);
 
-**💡 Önemli Not:** *Ben bir yapay zekâ asistanıyım, teşhis koyamam. Lütfen bu sonuçları kesinlikle kendi doktorunuzla da paylaşın.*
-""";
-      });
+      // 4. API servisini çağır (isPdf parametresini gönderiyoruz)
+      final response = await ApiService().uploadReport(
+        tempFile,
+        widget.reportType ?? "Genel Analiz",
+        isPdf: isPdf, // ApiService tarafında bu kontrolü eklemiştik
+      );
+
+      if (mounted) {
+        setState(() {
+          _isLoading = false;
+          _currentReport = response;
+        });
+      }
+    } catch (e, stacktrace) {
+      debugPrint("****************************************");
+      debugPrint("HATA OLUŞTU: $e");
+      debugPrint("HATA KAYNAĞI: $stacktrace");
+      debugPrint("****************************************");
+
+      if (mounted) {
+        setState(() {
+          _isLoading = false;
+          _currentReport = MedicalReport(
+            id: "error",
+            date: "Hata",
+            reportType: "Hata",
+            reportName: "Hata",
+            aiResponse:
+                "### ⚠️ Analiz Hatası\n\nSunucu dosyayı işleyemedi. Lütfen dosyanın bozuk olmadığından emin olun veya Render sunucusunun uyanmasını bekleyin.\n\n**Hata Detayı:** $e",
+            status: "Hata",
+          );
+        });
+      }
     }
+  }
+
+  @override
+  void dispose() {
+    _flutterTts.stop(); // Sayfadan çıkınca sesi durdur
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.blue.shade50,
+      backgroundColor: const Color(0xFFF0F7FF),
       appBar: AppBar(
-        title: const Text('Analiz Sonucu'),
+        title: const Text(
+          'Analiz Sonucu',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         centerTitle: true,
         backgroundColor: Colors.white,
-        foregroundColor: Colors.black,
         elevation: 0,
+        foregroundColor: Colors.black,
       ),
       body: _isLoading ? _buildLoadingView() : _buildResultView(),
     );
   }
 
-  // 1. EKRAN: YÜKLENİYOR ANİMASYONU
   Widget _buildLoadingView() {
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          // Sağlık temasına uygun dönen bir yükleme ikonu
-          Stack(
-            alignment: Alignment.center,
-            children: [
-              SizedBox(
-                width: 80,
-                height: 80,
-                child: CircularProgressIndicator(
-                  color: Colors.blue.shade700,
-                  strokeWidth: 6,
-                ),
-              ),
-              Icon(
-                Icons.medical_services,
-                color: Colors.blue.shade700,
-                size: 35,
-              ),
-            ],
+          SizedBox(
+            width: 80,
+            height: 80,
+            child: CircularProgressIndicator(
+              color: Colors.blue.shade700,
+              strokeWidth: 6,
+            ),
           ),
           const SizedBox(height: 30),
           const Text(
-            'Raporunuz analiz ediliyor...',
-            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            'Raporunuz Analiz Ediliyor...',
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 10),
-          Text(
-            'Tıbbi terimler halk diline çevriliyor\nLütfen bekleyin.',
-            textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 16, color: Colors.grey.shade600),
+          const Text('İlk istekte sunucunun uyanması 1 dk sürebilir.'),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildResultView() {
+    return SingleChildScrollView(
+      padding: const EdgeInsets.all(16),
+      child: Column(
+        children: [
+          _buildModernResultCard(_currentReport),
+          const SizedBox(height: 20),
+          _buildActionButtons(),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildModernResultCard(MedicalReport report) {
+    return Container(
+      width: double.infinity,
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(24),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.blue.withValues(alpha: 0.08),
+            blurRadius: 20,
+            spreadRadius: 5,
+          ),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 20),
+            decoration: BoxDecoration(
+              color: Colors.blue.shade50,
+              borderRadius: const BorderRadius.only(
+                topLeft: Radius.circular(24),
+                topRight: Radius.circular(24),
+              ),
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  report.date,
+                  style: TextStyle(
+                    color: Colors.blue.shade800,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                const Icon(Icons.auto_awesome, color: Colors.blue, size: 20),
+              ],
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: MarkdownBody(
+              data: report.aiResponse,
+              styleSheet: MarkdownStyleSheet(
+                p: const TextStyle(
+                  fontSize: 15,
+                  height: 1.6,
+                  color: Colors.black87,
+                ),
+                h3: TextStyle(
+                  color: Colors.blue.shade900,
+                  fontWeight: FontWeight.bold,
+                ),
+                listBullet: const TextStyle(color: Colors.blue),
+              ),
+            ),
           ),
         ],
       ),
     );
   }
 
-  // 2. EKRAN: SONUÇ GÖSTERİMİ
-  Widget _buildResultView() {
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: Column(
-        children: [
-          Expanded(
-            child: Container(
-              width: double.infinity,
-              padding: const EdgeInsets.all(20),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(15),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.05),
-                    blurRadius: 10,
-                    spreadRadius: 2,
-                  ),
-                ],
-              ),
-              // Markdown paketi sayesinde yapay zeka çıktısı kalın, italik ve listeler halinde şıkça görünür.
-              child: MarkdownBody(
-                data: _translatedText,
-                styleSheet: MarkdownStyleSheet(
-                  h3: TextStyle(
-                    color: Colors.blue.shade800,
-                    fontWeight: FontWeight.bold,
-                  ),
-                  p: const TextStyle(fontSize: 16, height: 1.5),
-                  listBullet: TextStyle(color: Colors.blue.shade600),
-                ),
-              ),
-            ),
+  Widget _buildActionButtons() {
+    return SizedBox(
+      width: double.infinity,
+      height: 55,
+      child: ElevatedButton.icon(
+        onPressed: () => Navigator.pop(context),
+        icon: const Icon(Icons.check_circle, color: Colors.white),
+        label: const Text(
+          'Anladım, Kapat',
+          style: TextStyle(color: Colors.white, fontSize: 16),
+        ),
+        style: ElevatedButton.styleFrom(
+          backgroundColor: Colors.blue.shade700,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15),
           ),
-          const SizedBox(height: 20),
-          // Gelecekte eklenecek olan "Sesli Oku" veya "PDF Olarak İndir" butonları için alan
-          SizedBox(
-            width: double.infinity,
-            height: 50,
-            child: ElevatedButton.icon(
-              onPressed: () {
-                Navigator.pop(context); // Ana menüye veya rapor seçimine dön
-              },
-              icon: const Icon(Icons.check_circle, color: Colors.white),
-              label: const Text(
-                'Tamamla',
-                style: TextStyle(color: Colors.white, fontSize: 16),
-              ),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.blue.shade700,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
-                ),
-              ),
-            ),
-          ),
-        ],
+        ),
       ),
     );
   }

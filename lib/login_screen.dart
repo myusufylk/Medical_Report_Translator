@@ -16,39 +16,52 @@ class LoginScreen extends StatelessWidget {
               children: [
                 const SizedBox(height: 50),
 
-                // 1. Üstteki Modern Oval Pencere ve Sembol
+                // 1. Üstteki Logo Bölümü
                 Center(
                   child: Container(
-                    width: 220,
+                    width: 240,
                     height: 140,
                     decoration: BoxDecoration(
                       color: Colors.white,
-                      borderRadius: const BorderRadius.all(
-                        Radius.elliptical(110, 70),
-                      ),
+                      borderRadius: BorderRadius.circular(30),
                       boxShadow: [
                         BoxShadow(
-                          color: Colors.blue.withOpacity(0.1),
-                          blurRadius: 20,
-                          spreadRadius: 5,
+                          color: Colors.blue.withOpacity(0.09),
+                          blurRadius: 22,
+                          spreadRadius: 4,
                         ),
                       ],
                     ),
-                    child: Center(
-                      child: Stack(
-                        alignment: Alignment.center,
-                        children: [
-                          Icon(
-                            Icons.shield_outlined,
-                            size: 70,
-                            color: Colors.blue.shade700,
-                          ),
-                          Icon(
-                            Icons.add,
-                            size: 30,
-                            color: Colors.blue.shade700,
-                          ),
-                        ],
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(30),
+                      child: Image.asset(
+                        'assets/login_logo.png',
+                        fit: BoxFit.cover,
+                        errorBuilder: (context, error, stackTrace) {
+                          return Container(
+                            color: Colors.blue.shade50,
+                            child: Center(
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Icon(
+                                    Icons.image_not_supported,
+                                    size: 36,
+                                    color: Colors.blue.shade200,
+                                  ),
+                                  const SizedBox(height: 8),
+                                  Text(
+                                    'Logo yüklenemedi',
+                                    style: TextStyle(
+                                      color: Colors.blue.shade300,
+                                      fontSize: 14,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          );
+                        },
                       ),
                     ),
                   ),
@@ -62,6 +75,16 @@ class LoginScreen extends StatelessWidget {
                     fontWeight: FontWeight.w600,
                     color: Color(0xFF2C3E50),
                     letterSpacing: 1.2,
+                  ),
+                ),
+                const SizedBox(height: 8),
+                const Text(
+                  'Tıbbi Rapor Tercümanı',
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w400,
+                    color: Color(0xFF4F5D75),
+                    letterSpacing: 0.6,
                   ),
                 ),
                 const SizedBox(height: 40),
