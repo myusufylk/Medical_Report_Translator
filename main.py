@@ -2,6 +2,7 @@ from fastapi import FastAPI, File, UploadFile, Depends, HTTPException, Form
 from sqlalchemy.orm import Session
 from database import Base, engine, get_db
 from models import BloodTestReport, EpicrisisReport, EKGReport
+from fastapi.middleware.cors import CORSMiddleware
 import models
 import shutil
 import os
@@ -12,6 +13,13 @@ print(" CALISAN MAIN:", os.path.abspath(__file__))
 from ocr import extract_text, extract_lab_values
 
 app = FastAPI()
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 Base.metadata.create_all(bind=engine)
 
@@ -112,7 +120,7 @@ async def ocr_file(
 
 
 
-        
+
         elif report_type == "EKG Metin Raporu":
 
             ekg = EKGReport(
