@@ -1,142 +1,635 @@
 {
-    "Epikriz": {
-        "tam_adi": "Epikriz (Taburculuk Özeti) / Discharge Summary (Epicrisis)",
-        "kategori": "Epikriz",
-        "normal_aralik": null,
-        "sade_aciklama": "Hastaneden taburcu olurken hazırlanan, hastalığınızın seyri, yapılan tedaviler ve sonuçları özetleyen resmi belgedir.",
-        "yuksekse": null,
-        "dusukse": null,
-        "anormal_durum": "Eksik veya hatalı epikriz, tedavi sürekliliğini bozabilir. Tanı, tedavi planı, ilaç listesi ve kontrol bilgileri mutlaka eksiksiz olmalıdır.",
-        "tehlikeli_deger": null
+  
+  "Epikriz": {
+    "tam_adi": "Epikriz (Taburculuk Özeti) / Discharge Summary (Epicrisis)",
+    "kategori": "Epikriz",
+    "normal_aralik": null,
+    "sade_aciklama": "Hastaneden taburcu olurken hazırlanan, hastalığınızın seyri, yapılan tedaviler ve sonuçları özetleyen resmi belgedir.",
+    "yuksekse": null,
+    "dusukse": null,
+    "anormal_durum": "Eksik veya hatalı epikriz, tedavi sürekliliğini bozabilir. Tanı, tedavi planı, ilaç listesi ve kontrol bilgileri mutlaka eksiksiz olmalıdır.",
+    "tehlikeli_deger": null,
+    "bolumler": [
+      "Chief_Complaint",
+      "Clinical_History",
+      "Physical_Exam",
+      "Primer_Tani",
+      "Sekonder_Tani",
+      "Hospital_Course",
+      "Vital_Bulgular",
+      "Taburculuk_Durumu",
+      "Taburculuk_Ilaclari",
+      "Kontrol_Randevusu",
+      "Tedavi_Plani",
+      "Konsultasyon",
+      "Prognoz"
+    ]
+  },
+
+  "Chief_Complaint": {
+    "tam_adi": "Başvuru Şikayeti / Chief Complaint",
+    "kategori": "Epikriz",
+    "normal_aralik": null,
+    "sade_aciklama": "Hastanın hastaneye başvurmasına neden olan, kendi ifadesiyle aktardığı ana şikayet veya semptomdur. Genellikle tek cümle ile özetlenir.",
+    "yuksekse": null,
+    "dusukse": null,
+    "anormal_durum": "Şikayetin yanlış veya eksik kaydedilmesi, tanı sürecini geciktirebilir ve yanlış bölüme yönlendirmeye neden olabilir.",
+    "tehlikeli_deger": null,
+    "gercek_hayat_ornekleri": [
+      {
+        "ingilizce_orijinal": "Complaint of allergies, worsening since relocation",
+        "turkce_ozet": "Yeni şehre taşınma sonrası kötüleşen alerjik yakınmalar",
+        "uzmanlik": "Allergy / Immunology"
+      },
+      {
+        "ingilizce_orijinal": "Difficulty voiding, enlarged prostate symptoms",
+        "turkce_ozet": "İşeme güçlüğü, prostat büyümesine bağlı mesane şikayetleri",
+        "uzmanlik": "Urology"
+      },
+      {
+        "ingilizce_orijinal": "Syncope episodes, lightheadedness on standing",
+        "turkce_ozet": "Ayağa kalktığında baş dönmesi ve tekrarlayan bilinç kayıpları",
+        "uzmanlik": "General Medicine"
+      },
+      {
+        "ingilizce_orijinal": "Worker's compensation injury, blunt trauma to right thumb",
+        "turkce_ozet": "İş kazası sonucu sağ baş parmakta künt travma",
+        "uzmanlik": "Orthopedic"
+      },
+      {
+        "ingilizce_orijinal": "Chest pain, shortness of breath",
+        "turkce_ozet": "Göğüs ağrısı ve nefes darlığı",
+        "uzmanlik": "Cardiovascular / Pulmonary"
+      }
+    ],
+    "turkce_sablonu": "Hasta, [süre] önce başlayan [şikayet] nedeniyle başvurdu. Şikayet [tetikleyici faktör] ile [kötüleşiyor/değişmiyor]. [Eşlik eden semptomlar] de mevcuttur."
+  },
+
+  "Clinical_History": {
+    "tam_adi": "Klinik Hikaye (Tıbbi Öykü) / Clinical History (Anamnesis)",
+    "kategori": "Epikriz",
+    "normal_aralik": null,
+    "sade_aciklama": "Hastanın geçmiş hastalıkları, ameliyatları, kullandığı ilaçlar, alerjileri, aile ve sosyal öyküsünü kapsayan kapsamlı tıbbi geçmişidir. Mevcut şikayetin ne zaman ve nasıl başladığını da içerir.",
+    "yuksekse": null,
+    "dusukse": null,
+    "anormal_durum": "Eksik veya hatalı anamnez, yanlış tanıya ve uygunsuz tedaviye yol açabilir. Özellikle ilaç alerjileri ve kronik hastalıkların eksik bildirilmesi tehlikeli olabilir.",
+    "tehlikeli_deger": null,
+    "alt_basliklar": {
+      "Gecmis_Hastaliklar": {
+        "aciklama": "Daha önce tanı konulan kronik veya geçirilmiş hastalıklar.",
+        "gercek_hayat_ornekleri": [
+          {
+            "ingilizce_orijinal": "Past medical history: high cholesterol, high blood pressure, asthma, sleep apnea, diabetes mellitus, gastroesophageal reflux disease",
+            "turkce_ozet": "Geçmiş hastalıklar: Yüksek kolesterol, hipertansiyon, astım, uyku apnesi, diyabet, reflü hastalığı"
+          },
+          {
+            "ingilizce_orijinal": "History of hypothyroidism, coronary artery disease, osteoarthritis",
+            "turkce_ozet": "Hipotiroidizm (tiroid yetersizliği), koroner arter hastalığı, kireçlenme öyküsü"
+          },
+          {
+            "ingilizce_orijinal": "End-stage renal disease requiring hemodialysis, congestive heart failure",
+            "turkce_ozet": "Haftada 3 kez diyaliz gerektiren son dönem böbrek yetmezliği, kalp yetmezliği"
+          }
+        ]
+      },
+      "Gecmis_Ameliyatlar": {
+        "aciklama": "Daha önce geçirilen cerrahi işlemler.",
+        "gercek_hayat_ornekleri": [
+          {
+            "ingilizce_orijinal": "Past surgical history: reconstructive surgery on right hand 13 years ago, orthopedic/knee surgery",
+            "turkce_ozet": "13 yıl önce sağ el rekonstrüktif ameliyatı; ortopedik diz ameliyatı"
+          }
+        ]
+      },
+      "Mevcut_Ilaclar": {
+        "aciklama": "Başvuru öncesi kullanılan ilaçlar.",
+        "gercek_hayat_ornekleri": [
+          {
+            "ingilizce_orijinal": "Current medications: Diovan, Crestor, Tricor, Coreg 12.5 mg b.i.d., lisinopril 10 mg daily",
+            "turkce_ozet": "Mevcut ilaçlar: Tansiyon ilacı (Diovan, lisinopril), kolesterol ilacı (Crestor, Tricor), kalp ilacı (Coreg)"
+          }
+        ]
+      },
+      "Alerjiler": {
+        "aciklama": "Bilinen ilaç veya madde alerjileri.",
+        "gercek_hayat_ornekleri": [
+          {
+            "ingilizce_orijinal": "Allergies: Penicillin. No known medicine allergies.",
+            "turkce_ozet": "Penisilin alerjisi mevcut. / Bilinen ilaç alerjisi yok."
+          }
+        ]
+      },
+      "Aile_Oykusu": {
+        "aciklama": "Birinci derece akrabalarda görülen önemli hastalıklar.",
+        "gercek_hayat_ornekleri": [
+          {
+            "ingilizce_orijinal": "Family history: heart disease in both grandfathers, grandmother with stroke, grandmother with diabetes. Obesity, heart disease, and diabetes.",
+            "turkce_ozet": "Aile öyküsü: Her iki büyükbabada kalp hastalığı, büyükannesinde inme ve diyabet; obezite ve kalp hastalığı aile geçmişinde mevcut"
+          }
+        ]
+      },
+      "Sosyal_Oyku": {
+        "aciklama": "Sigara, alkol, meslek ve yaşam koşullarına ilişkin bilgiler.",
+        "gercek_hayat_ornekleri": [
+          {
+            "ingilizce_orijinal": "Social history: smokes 1.5 pack/day for 15 years, recently stopped. Drinks alcohol 10-12 drinks/week.",
+            "turkce_ozet": "15 yıl paket/gün sigara içmiş, son 2 haftadır bırakmış. Haftada 10-12 alkol tüketimi"
+          }
+        ]
+      }
     },
-    "Primer_Tani": {
-        "tam_adi": "Primer Tanı (Ana Tanı) / Primary Diagnosis",
-        "kategori": "Epikriz",
-        "normal_aralik": null,
-        "sade_aciklama": "Hastaneye yatış nedeniniz olan veya tedavinin ana odağı olan temel hastalık tanısıdır.",
-        "yuksekse": null,
-        "dusukse": null,
-        "anormal_durum": "Primer tanının yanlış veya eksik belirlenmesi, tedavi planını olumsuz etkiler ve sigorta/faturalama sorunlarına yol açabilir. ICD-10 kodu ile eşleşmelidir.",
-        "tehlikeli_deger": null
+    "turkce_sablonu": "Hastanın [yaş] yıldır [kronik hastalık] öyküsü mevcuttur. Geçmişte [ameliyat/hastane yatışı] geçirmiştir. Şu an [ilaç adı] kullanmaktadır. [Alerji] alerjisi bulunmaktadır. Aile öyküsünde [aile hastalıkları] mevcuttur."
+  },
+
+  "Physical_Exam": {
+    "tam_adi": "Fizik Muayene / Physical Examination",
+    "kategori": "Epikriz",
+    "normal_aralik": null,
+    "sade_aciklama": "Doktorun hastayı baştan ayağa gözlemleyerek ve muayene ederek elde ettiği bulgulardır. Bilinç durumu, kalp, akciğer, karın, ekstremite ve nörolojik muayeneyi kapsar.",
+    "yuksekse": null,
+    "dusukse": null,
+    "anormal_durum": "Fizik muayene bulgularının eksik veya hatalı kaydedilmesi, klinik karar verme sürecini olumsuz etkiler.",
+    "tehlikeli_deger": null,
+    "alt_basliklar": {
+      "Genel_Gorunum": {
+        "aciklama": "Hastanın genel durumu ve görünüşü.",
+        "gercek_hayat_ornekleri": [
+          {
+            "ingilizce_orijinal": "He is alert and oriented x3. Afebrile. Vital signs are stable.",
+            "turkce_ozet": "Hasta bilinçli, zamanı-mekânı bilen, ateşsiz, vital bulgular stabil"
+          },
+          {
+            "ingilizce_orijinal": "Well-developed, well-nourished, in no acute distress.",
+            "turkce_ozet": "Genel durumu iyi, akut sıkıntı belirtisi yok"
+          }
+        ]
+      },
+      "HEENT": {
+        "aciklama": "Baş, kulak, göz, burun ve boğaz muayenesi.",
+        "gercek_hayat_ornekleri": [
+          {
+            "ingilizce_orijinal": "Throat mildly erythematous without exudate. Nasal mucosa erythematous and swollen.",
+            "turkce_ozet": "Boğaz hafifçe kızarmış, akıntı yok. Burun mukozası kızarık ve şişmiş"
+          }
+        ]
+      },
+      "Kalp_Akciger": {
+        "aciklama": "Kardiyovasküler ve solunum sistemi muayenesi.",
+        "gercek_hayat_ornekleri": [
+          {
+            "ingilizce_orijinal": "Lungs: positive wheezing bilaterally. Heart: regular rhythm and rate.",
+            "turkce_ozet": "Her iki akciğerde hırıltı (wheezing) duyuluyor. Kalp ritmi ve hızı düzenli"
+          },
+          {
+            "ingilizce_orijinal": "Lungs: clear. Heart: regular rate and rhythm, no murmurs.",
+            "turkce_ozet": "Akciğerler temiz. Kalp düzenli, üfürüm yok"
+          }
+        ]
+      },
+      "Karin": {
+        "aciklama": "Karın muayenesi.",
+        "gercek_hayat_ornekleri": [
+          {
+            "ingilizce_orijinal": "Abdomen is soft. Negative for abnormal findings.",
+            "turkce_ozet": "Karın yumuşak, anormal bulgu yok"
+          }
+        ]
+      },
+      "Ekstremiteler": {
+        "aciklama": "Kol ve bacak muayenesi.",
+        "gercek_hayat_ornekleri": [
+          {
+            "ingilizce_orijinal": "Extremities: 1+ pitting edema.",
+            "turkce_ozet": "Bacaklarda hafif çukurlaşan (pitting) ödem"
+          }
+        ]
+      },
+      "Norolojik": {
+        "aciklama": "Nörolojik sistem muayenesi.",
+        "gercek_hayat_ornekleri": [
+          {
+            "ingilizce_orijinal": "Cranial nerves II–XII intact. No focal neurological deficits.",
+            "turkce_ozet": "Kafa siniri muayeneleri normal. Odaksal nörolojik bulgu yok"
+          }
+        ]
+      }
     },
-    "Sekonder_Tani": {
-        "tam_adi": "Sekonder Tanı (Ek Tanı) / Secondary Diagnosis",
-        "kategori": "Epikriz",
-        "normal_aralik": null,
-        "sade_aciklama": "Ana hastalığınızın yanı sıra saptanan diğer hastalık veya durumları gösterir (örneğin diyabet, hipertansiyon gibi eşlik eden hastalıklar).",
-        "yuksekse": null,
-        "dusukse": null,
-        "anormal_durum": "Çok sayıda sekonder tanı, hastanın çoklu hastalık (komorbidite) yüküne sahip olduğunu gösterir ve tedavi planını karmaşıklaştırabilir.",
-        "tehlikeli_deger": null
+    "turkce_sablonu": "Genel durum [iyi/orta/kötü]. Bilinç [açık/kapalı]. Ateş [var/yok]. Akciğerler [temiz/hırıltılı]. Kalp [düzenli/aritmik]. Karın [yumuşak/hassas]. Ekstremiteler [normal/ödemli]."
+  },
+
+  "Primer_Tani": {
+    "tam_adi": "Primer Tanı (Ana Tanı) / Primary Diagnosis",
+    "kategori": "Epikriz",
+    "normal_aralik": null,
+    "sade_aciklama": "Hastaneye yatış nedeniniz olan veya tedavinin ana odağı olan temel hastalık tanısıdır.",
+    "yuksekse": null,
+    "dusukse": null,
+    "anormal_durum": "Primer tanının yanlış veya eksik belirlenmesi, tedavi planını olumsuz etkiler ve sigorta/faturalama sorunlarına yol açabilir. ICD-10 kodu ile eşleşmelidir.",
+    "tehlikeli_deger": null,
+    "gercek_hayat_primer_tanilar": [
+      {
+        "tanim": "Hipertansiyon",
+        "aciklama": "Kan basıncının sürekli yüksek olduğu kronik durum. Dataset'te en sık görülen (%26) primer tanıdır.",
+        "icd10": "I10",
+        "dataset_siklik": 28
+      },
+      {
+        "tanim": "Hipotiroidizm",
+        "aciklama": "Tiroid bezinin yetersiz hormon üretmesi. Yorgunluk, kilo artışı ve metabolizma yavaşlamasına yol açar.",
+        "icd10": "E03.9",
+        "dataset_siklik": 12
+      },
+      {
+        "tanim": "Anemi",
+        "aciklama": "Kanda yeterli kırmızı kan hücresi veya hemoglobin bulunmaması durumu.",
+        "icd10": "D64.9",
+        "dataset_siklik": 9
+      },
+      {
+        "tanim": "Konjestif Kalp Yetmezliği",
+        "aciklama": "Kalbin vücuda yeterli kan pompalamasındaki yetersizlik. Nefes darlığı ve ödem ile kendini gösterir.",
+        "icd10": "I50.9",
+        "dataset_siklik": 8
+      },
+      {
+        "tanim": "Diyabetes Mellitus",
+        "aciklama": "Kan şekerinin kronik olarak yüksek seyrettiği metabolik hastalık.",
+        "icd10": "E11.9",
+        "dataset_siklik": 7
+      },
+      {
+        "tanim": "Hiperlipidemi",
+        "aciklama": "Kanda yağ (kolesterol/trigliserid) değerlerinin normalin üzerinde olması.",
+        "icd10": "E78.5",
+        "dataset_siklik": 5
+      },
+      {
+        "tanim": "Gastroözofajyal Reflü Hastalığı (GÖRH)",
+        "aciklama": "Mide asidinin yemek borusuna kaçması sonucu oluşan yanma ve rahatsızlık.",
+        "icd10": "K21.0",
+        "dataset_siklik": 5
+      },
+      {
+        "tanim": "Osteoartrit",
+        "aciklama": "Eklem kıkırdağının aşınmasına bağlı kronik ağrı ve hareket kısıtlılığı.",
+        "icd10": "M19.90",
+        "dataset_siklik": 5
+      },
+      {
+        "tanim": "Koroner Arter Hastalığı",
+        "aciklama": "Kalp damarlarında daralma/tıkanma sonucu kalp kasına yetersiz kan gitmesi.",
+        "icd10": "I25.10",
+        "dataset_siklik": 5
+      },
+      {
+        "tanim": "Pnömoni",
+        "aciklama": "Akciğer dokusunun enfeksiyona bağlı iltihabı. Ateş, öksürük ve nefes darlığıyla seyreder.",
+        "icd10": "J18.9",
+        "dataset_siklik": 4
+      },
+      {
+        "tanim": "Kronik Obstrüktif Akciğer Hastalığı (KOAH)",
+        "aciklama": "Akciğerlerde hava akışının kronik olarak kısıtlandığı, genellikle sigaraya bağlı hastalık.",
+        "icd10": "J44.1",
+        "dataset_siklik": 4
+      },
+      {
+        "tanim": "İdrar Yolu Enfeksiyonu",
+        "aciklama": "Mesane veya böbreklerin bakteriyel enfeksiyonu. Yanma, sık idrara çıkma ile kendini gösterir.",
+        "icd10": "N39.0",
+        "dataset_siklik": 4
+      },
+      {
+        "tanim": "Senkop (Bayılma)",
+        "aciklama": "Geçici bilinç kaybı. Genellikle beyne giden kan akımının anlık azalmasından kaynaklanır.",
+        "icd10": "R55",
+        "dataset_siklik": 2
+      },
+      {
+        "tanim": "Romatoid Artrit",
+        "aciklama": "Bağışıklık sisteminin eklemlere saldırdığı kronik inflamatuar hastalık.",
+        "icd10": "M06.9",
+        "dataset_siklik": 2
+      },
+      {
+        "tanim": "Lösemi / Lenfoma / Leiomyosarkom",
+        "aciklama": "Kan, lenf bezi veya yumuşak doku kökenlı habis (kanserli) tümörler.",
+        "icd10": "C91–C85–C49",
+        "dataset_siklik": 2
+      }
+    ],
+    "turkce_sablonu": "Primer tanı: [Tanı adı]. Bu tanı, [kısa tanım – hastalık nedir]. Hastanın bu tanıya ait başlıca belirtileri [semptom 1] ve [semptom 2] şeklindeydi."
+  },
+
+  "Sekonder_Tani": {
+    "tam_adi": "Sekonder Tanı (Ek / Eşlik Eden Tanı) / Secondary Diagnosis (Comorbidities)",
+    "kategori": "Epikriz",
+    "normal_aralik": null,
+    "sade_aciklama": "Ana hastalığınızın yanı sıra saptanan diğer hastalık veya durumları gösterir. Diyabet, hipertansiyon, tiroid hastalığı gibi kronik eşlik eden hastalıklar (komorbidite) bu kategoriye girer.",
+    "yuksekse": null,
+    "dusukse": null,
+    "anormal_durum": "Çok sayıda sekonder tanı, hastanın çoklu hastalık (komorbidite) yüküne sahip olduğunu gösterir ve tedavi planını karmaşıklaştırabilir.",
+    "tehlikeli_deger": null,
+    "gercek_hayat_sekonder_tanilar": [
+      {
+        "tanim": "Hipertansiyon",
+        "aciklama": "Çok sayıda farklı primer tanılı hastada eşlik eden en sık komorbidite.",
+        "dataset_siklik": 28
+      },
+      {
+        "tanim": "Hipotiroidizm",
+        "aciklama": "Diğer sistemik hastalıklara eşlik eden, tiroid hormon eksikliğine dayanan durum.",
+        "dataset_siklik": 12
+      },
+      {
+        "tanim": "Anemi",
+        "aciklama": "Cerrahi, kanser veya kronik hastalık süreçlerinde sıklıkla eşlik eden bulgudur.",
+        "dataset_siklik": 9
+      },
+      {
+        "tanim": "Diyabetes Mellitus",
+        "aciklama": "Özellikle kardiyovasküler, renal ve nörolojik hastalıklara sıklıkla eşlik eder.",
+        "dataset_siklik": 7
+      },
+      {
+        "tanim": "Hiperlipidemi",
+        "aciklama": "Koroner arter hastalığı ve hipertansiyonla birlikte sıklıkla görülür.",
+        "dataset_siklik": 5
+      },
+      {
+        "tanim": "Kronik Böbrek Yetmezliği / Son Dönem Böbrek Hastalığı",
+        "aciklama": "Diyabet ve hipertansiyon komplikasyonu olarak sıklıkla eşlik eder.",
+        "dataset_siklik": 2
+      },
+      {
+        "tanim": "Anksiyete Bozukluğu",
+        "aciklama": "Kronik hastalığa eşlik eden psikiyatrik komorbidite.",
+        "dataset_siklik": 3
+      },
+      {
+        "tanim": "Pankitopeni",
+        "aciklama": "Kanda tüm kan hücrelerinin azalması; onkolojik hastalarda sık görülen komorbidite.",
+        "dataset_siklik": 4
+      },
+      {
+        "tanim": "Hipokalemi",
+        "aciklama": "Kanda potasyum düzeyinin normalin altına düşmesi (< 3,5 mEq/L). Diüretik kullanan, kusma/ishal yaşayan veya böbrek hastalığı olan hastalarda sıklıkla eşlik eden bulgudur. Kas güçsüzlüğü, kramp ve kalp ritim bozukluklarına yol açabilir.",
+        "dataset_siklik": 4
+      },
+      {
+        "tanim": "Atrial Fibrilasyon",
+        "aciklama": "Kalbin üst odacıklarının (atriumların) düzensiz ve hızlı çarpması ile karakterize ritim bozukluğu. Kalp yetmezliği, hipertansiyon ve koroner arter hastalığına sıklıkla eşlik eder; inme riskini artırır.",
+        "dataset_siklik": 2
+      }
+    ],
+    "turkce_sablonu": "Sekonder tanılar: 1. [Tanı 1] – [kısa açıklama], 2. [Tanı 2] – [kısa açıklama]. Bu eşlik eden durumlar, tedavi sürecini ve iyileşme hızını etkileyebilmektedir."
+  },
+
+  "Hospital_Course": {
+    "tam_adi": "Hastane Süreci (Tedavi Süreci) / Hospital Course",
+    "kategori": "Epikriz",
+    "normal_aralik": null,
+    "sade_aciklama": "Hastanede yatış süresince gerçekleştirilen tüm tanı ve tedavi adımlarının kronolojik özetidir. Yapılan ameliyatlar, uygulanan ilaçlar, konsültasyonlar, komplikasyonlar ve genel seyir bu bölümde yer alır.",
+    "yuksekse": null,
+    "dusukse": null,
+    "anormal_durum": "Hastane sürecinin eksik belgelenmesi, taburculuk sonrası takipte ciddi sorunlara yol açabilir. Özellikle komplikasyonların ve tedavi değişikliklerinin kaydedilmesi kritiktir.",
+    "tehlikeli_deger": null,
+    "alt_basliklar": {
+      "Yapilan_Islemler": {
+        "aciklama": "Tanı veya tedavi amacıyla gerçekleştirilen tüm tıbbi ve cerrahi işlemler.",
+        "gercek_hayat_ornekleri": [
+          {
+            "ingilizce_orijinal": "Cystourethroscopy and transurethral resection of prostate (TURP). Postoperative course uncomplicated.",
+            "turkce_ozet": "İdrar yolundan prostat dokusu alındı (TURP ameliyatı). Ameliyat sonrası komplikasyon gelişmedi."
+          },
+          {
+            "ingilizce_orijinal": "Total abdominal hysterectomy (TAH) performed on 6/10/2009. Patient tolerated all procedures well.",
+            "turkce_ozet": "6/10/2009 tarihinde toplam rahim alınma ameliyatı yapıldı. Hasta tüm işlemleri iyi tolere etti."
+          },
+          {
+            "ingilizce_orijinal": "Clinical swallow evaluation completed. Oral mechanism examination within functional limits.",
+            "turkce_ozet": "Yutma değerlendirmesi yapıldı. Yutma fonksiyonu yeterli düzeyde bulundu."
+          }
+        ]
+      },
+      "Komplikasyonlar": {
+        "aciklama": "Tedavi veya ameliyat sırasında ya da sonrasında gelişen istenmeyen durumlar.",
+        "gercek_hayat_ornekleri": [
+          {
+            "ingilizce_orijinal": "Complications: None. Blood transfusions: None. Infections: None.",
+            "turkce_ozet": "Komplikasyon gelişmedi. Kan transfüzyonu ve enfeksiyon olmadı."
+          },
+          {
+            "ingilizce_orijinal": "Patient developed acute respiratory failure requiring ICU admission.",
+            "turkce_ozet": "Akut solunum yetmezliği gelişti, yoğun bakıma alındı."
+          }
+        ]
+      },
+      "Laboratuvar_ve_Goruntuleme": {
+        "aciklama": "Yatış süresince yapılan önemli kan testleri ve görüntüleme sonuçları.",
+        "gercek_hayat_ornekleri": [
+          {
+            "ingilizce_orijinal": "On admission: hemoglobin 10.5, hematocrit 32.8. On discharge: hemoglobin 7.9, hematocrit 25.2.",
+            "turkce_ozet": "Yatışta hemoglobin 10.5 g/dL iken taburculukta 7.9 g/dL'ye düştü."
+          },
+          {
+            "ingilizce_orijinal": "Chest X-ray: calcified old granulomatous disease, otherwise normal. EKG: normal.",
+            "turkce_ozet": "Akciğer grafisinde eski granülom kalsifikasyonu dışında patoloji yok. EKG normal."
+          }
+        ]
+      },
+      "Taburculuk_Oncesi_Durum": {
+        "aciklama": "Taburculuktan hemen önceki klinik durum ve hasta kararları.",
+        "gercek_hayat_ornekleri": [
+          {
+            "ingilizce_orijinal": "Patient was afebrile, vital signs stable, ambulating without difficulty, tolerating diet and desirous of going home.",
+            "turkce_ozet": "Ateşi yok, vital bulgular stabil, yürüyebiliyor, yemek yiyebiliyor ve eve gitmek istiyor."
+          }
+        ]
+      }
     },
-    "ICD10_Kodu": {
-        "tam_adi": "ICD-10 Kodu / ICD-10 Code (International Classification of Diseases, 10th Revision)",
-        "kategori": "Epikriz",
-        "normal_aralik": null,
-        "sade_aciklama": "Dünya Sağlık Örgütü (WHO) tarafından belirlenen uluslararası hastalık sınıflandırma kodudur. Her tanının bir kodu vardır.",
-        "yuksekse": null,
-        "dusukse": null,
-        "anormal_durum": "Yanlış ICD-10 kodu, istatistiksel hatalara, sigorta red'lerine ve yanlış tedavi protokollerinin uygulanmasına yol açabilir. Kod, tanı ile bire bir uyumlu olmalıdır.",
-        "tehlikeli_deger": null
-    },
-    "Anamnez": {
-        "tam_adi": "Anamnez (Tıbbi Öykü) / Anamnesis (Medical History)",
-        "kategori": "Epikriz",
-        "normal_aralik": null,
-        "sade_aciklama": "Hastanın şikayetlerinin ne zaman başladığı, nasıl ilerlediği, geçmiş hastalıkları, kullandığı ilaçlar ve aile öyküsünü kapsayan tıbbi geçmiş bilgisidir.",
-        "yuksekse": null,
-        "dusukse": null,
-        "anormal_durum": "Eksik veya hatalı anamnez, yanlış tanıya ve uygunsuz tedaviye yol açabilir. Özellikle ilaç alerjileri ve kronik hastalıkların eksik bildirilmesi tehlikeli olabilir.",
-        "tehlikeli_deger": null
-    },
-    "Vital_Bulgular": {
-        "tam_adi": "Vital Bulgular (Yaşamsal Belirtiler) / Vital Signs",
-        "kategori": "Epikriz",
-        "normal_aralik": "Tansiyon: 120/80 mmHg; Nabız: 60–100/dk; Solunum: 12–20/dk; Ateş: 36,1–37,2 °C; SpO2: %95–100",
-        "sade_aciklama": "Vücudunuzun temel yaşamsal fonksiyonlarını gösteren ölçümlerdir: tansiyon, nabız, solunum hızı, ateş ve oksijen doygunluğu.",
-        "yuksekse": null,
-        "dusukse": null,
-        "anormal_durum": "Herhangi bir vital bulgunun normal aralık dışında olması klinik değerlendirme gerektirir. Birden fazla vital bulgunun bozukluğu ciddi bir durumu işaret eder.",
-        "tehlikeli_deger": "Sistolik tansiyon < 90 mmHg (şok), kalp hızı < 40 veya > 150/dk, solunum hızı < 8 veya > 30/dk, ateş > 40 °C, SpO2 < %90 – bunların herhangi biri acil müdahale gerektirir"
-    },
-    "Taburculuk_Durumu": {
-        "tam_adi": "Taburculuk Durumu / Discharge Status",
-        "kategori": "Epikriz",
-        "normal_aralik": null,
-        "sade_aciklama": "Hastaneden çıkış anındaki genel sağlık durumunuzu ve taburculuk şeklinizi belirtir.",
-        "yuksekse": null,
-        "dusukse": null,
-        "anormal_durum": "Taburculuk durumları: Şifa ile (tam iyileşme), düzelme ile (kısmi iyileşme), kendi isteği ile (tedavi tamamlanmadan), sevk (üst merkeze transfer), exitus (ölüm). Kendi isteği ile taburculuk, tıbbi riskleri artırabilir.",
-        "tehlikeli_deger": null
-    },
-    "Konsultasyon": {
-        "tam_adi": "Konsültasyon / Consultation",
-        "kategori": "Epikriz",
-        "normal_aralik": null,
-        "sade_aciklama": "Tedavi sürecinizde başka uzmanlık dallarından görüş alınması işlemidir.",
-        "yuksekse": null,
-        "dusukse": null,
-        "anormal_durum": "Çok sayıda konsültasyon, karmaşık veya çok sistemli bir hastalığı gösterebilir. Konsültasyonların sonuçlarının ve önerilerinin epikrizde yer alması tedavi sürekliliği için önemlidir.",
-        "tehlikeli_deger": null
-    },
-    "Prognoz": {
-        "tam_adi": "Prognoz (Hastalığın Öngörülen Seyri) / Prognosis",
-        "kategori": "Epikriz",
-        "normal_aralik": null,
-        "sade_aciklama": "Hastalığınızın bundan sonraki beklenen seyrini, iyileşme sürecini ve olası sonuçlarını gösteren tıbbi değerlendirmedir.",
-        "yuksekse": null,
-        "dusukse": null,
-        "anormal_durum": "Kötü prognoz, hastalığın ilerleyici veya tedaviye dirençli olduğunu gösterir. Palyatif bakım, ek tedavi seçenekleri veya yaşam kalitesi planlaması gerekebilir.",
-        "tehlikeli_deger": null
-    },
-    "Taburculuk_Ilaclari": {
-        "tam_adi": "Taburculuk İlaçları (Reçete) / Discharge Medications",
-        "kategori": "Epikriz",
-        "normal_aralik": null,
-        "sade_aciklama": "Hastaneden çıktıktan sonra evde kullanmanız gereken ilaçların listesidir. Doz, kullanım sıklığı ve süresi yazılır.",
-        "yuksekse": null,
-        "dusukse": null,
-        "anormal_durum": "İlaç etkileşimleri, doz hataları veya alerji öyküsü ile çelişen ilaçların reçete edilmesi ciddi yan etkilere yol açabilir. İlaç uyumsuzluğu (non-compliance) tedavi başarısızlığına neden olabilir.",
-        "tehlikeli_deger": null
-    },
-    "Kontrol_Randevusu": {
-        "tam_adi": "Kontrol Randevusu / Follow-up Appointment",
-        "kategori": "Epikriz",
-        "normal_aralik": null,
-        "sade_aciklama": "Taburculuk sonrası tedavinin etkinliğinin değerlendirilmesi için planlanan doktor muayene tarihidir.",
-        "yuksekse": null,
-        "dusukse": null,
-        "anormal_durum": "Kontrol randevusuna gitmemek, komplikasyonların geç fark edilmesine ve hastalığın ilerlemesine yol açabilir. Özellikle cerrahi sonrası, kemoterapi ve kronik hastalık takibinde kontrol randevuları kritiktir.",
-        "tehlikeli_deger": null
-    },
-    "Tedavi_Plani": {
-        "tam_adi": "Tedavi Planı / Treatment Plan",
-        "kategori": "Epikriz",
-        "normal_aralik": null,
-        "sade_aciklama": "Hastalığınız için uygulanacak tıbbi tedavinin (ilaç, cerrahi, fizik tedavi vb.) aşamalarını ve hedeflerini gösteren plandır.",
-        "yuksekse": null,
-        "dusukse": null,
-        "anormal_durum": "Tedavi planının hasta tarafından anlaşılmaması veya uygulanmaması, hastalığın kötüleşmesine yol açar. Plan, hasta eğitimi, yaşam tarzı değişiklikleri ve izlem takvimini içermelidir.",
-        "tehlikeli_deger": null
-    },
-    "Hipertansiyon": {
-        "tam_adi": "Hipertansiyon (Yüksek Tansiyon) / Hypertension",
-        "kategori": "Epikriz",
-        "normal_aralik": "Normal: < 120/80 mmHg; Yükselmiş: 120–129/<80; Evre 1 HT: 130–139/80–89; Evre 2 HT: ≥ 140/90 mmHg",
-        "sade_aciklama": "Kan basıncının sürekli olarak normal değerlerin üzerinde olması durumudur. Kalp, beyin ve böbrek hasarına yol açabilir.",
-        "yuksekse": "Kalp krizi, inme, böbrek yetmezliği, göz hasarı ve damar hastalığı riski artar.",
-        "dusukse": null,
-        "anormal_durum": "Dirençli hipertansiyon (3 veya daha fazla ilaca rağmen kontrol altına alınamayan) sekonder nedenleri (renal arter stenozu, feokromasitoma, Cushing sendromu gibi) araştırmayı gerektirir.",
-        "tehlikeli_deger": "Sistolik > 180 mmHg ve/veya Diastolik > 120 mmHg (hipertansif acil/kriz – organ hasarı riski, acil müdahale gerektirir)"
-    },
-    "Diyabet": {
-        "tam_adi": "Diyabet (Şeker Hastalığı) / Diabetes Mellitus",
-        "kategori": "Epikriz",
-        "normal_aralik": "Açlık glukoz < 100 mg/dL normal; 100–125 mg/dL prediyabet; ≥ 126 mg/dL diyabet. HbA1c < %5,7 normal; ≥ %6,5 diyabet",
-        "sade_aciklama": "Vücudun kan şekerini yeterince kontrol edemediği kronik bir hastalıktır. Tip 1 ve Tip 2 olmak üzere iki ana tipi vardır.",
-        "yuksekse": "Kontrol altında olmayan diyabet; göz hasarı (retinopati), böbrek hasarı (nefropati), sinir hasarı (nöropati), kalp-damar hastalıkları ve yara iyileşme bozukluğuna yol açabilir.",
-        "dusukse": null,
-        "anormal_durum": "Diyabetik ketoasidoz (Tip 1'de daha sık) veya hiperozmolar hiperglisemik durum (Tip 2'de daha sık) hayatı tehdit eden komplikasyonlardır.",
-        "tehlikeli_deger": "Kan şekeri > 500 mg/dL veya < 40 mg/dL ile bilinç değişikliği – acil müdahale gerektirir. DKA bulguları (kusma, karın ağrısı, Kussmaul solunumu, aseton kokusu) – acil yoğun bakım"
-    }
+    "turkce_sablonu": "Hasta [tarih]'te [şikayet] nedeniyle yatırıldı. [Yapılan işlem/ameliyat] uygulandı. Yatış sürecinde [komplikasyon/olay] [gelişti/gelişmedi]. Taburculuk öncesinde genel durum [stabil/kötü/iyi] olarak değerlendirildi."
+  },
+
+  "Vital_Bulgular": {
+    "tam_adi": "Vital Bulgular (Yaşamsal Belirtiler) / Vital Signs",
+    "kategori": "Epikriz",
+    "normal_aralik": "Tansiyon: 120/80 mmHg; Nabız: 60–100/dk; Solunum: 12–20/dk; Ateş: 36,1–37,2 °C; SpO2: %95–100",
+    "sade_aciklama": "Vücudunuzun temel yaşamsal fonksiyonlarını gösteren ölçümlerdir: tansiyon, nabız, solunum hızı, ateş ve oksijen doygunluğu.",
+    "yuksekse": null,
+    "dusukse": null,
+    "anormal_durum": "Herhangi bir vital bulgunun normal aralık dışında olması klinik değerlendirme gerektirir. Birden fazla vital bulgunun bozukluğu ciddi bir durumu işaret eder.",
+    "tehlikeli_deger": "Sistolik tansiyon < 90 mmHg (şok), kalp hızı < 40 veya > 150/dk, solunum hızı < 8 veya > 30/dk, ateş > 40 °C, SpO2 < %90 – bunların herhangi biri acil müdahale gerektirir",
+    "gercek_hayat_ornekleri": [
+      {
+        "ingilizce_orijinal": "Weight: 130 pounds, blood pressure 124/78. Afebrile. Vital signs stable.",
+        "turkce_ozet": "Kilo: 59 kg, tansiyon 124/78 mmHg. Ateşsiz. Vital bulgular stabil."
+      },
+      {
+        "ingilizce_orijinal": "Vital signs: Temperature 98.6°F, BP 150/95, HR 92, RR 18, O2 sat 94% on room air.",
+        "turkce_ozet": "Ateş: 37°C, Tansiyon: 150/95 (yüksek), Nabız: 92/dk, Solunum: 18/dk, Oksijen: %94 (hafif düşük)"
+      }
+    ]
+  },
+
+  "Taburculuk_Durumu": {
+    "tam_adi": "Taburculuk Durumu / Discharge Status",
+    "kategori": "Epikriz",
+    "normal_aralik": null,
+    "sade_aciklama": "Hastaneden çıkış anındaki genel sağlık durumunuzu ve taburculuk şeklinizi belirtir.",
+    "yuksekse": null,
+    "dusukse": null,
+    "anormal_durum": "Taburculuk durumları: Şifa ile (tam iyileşme), düzelme ile (kısmi iyileşme), kendi isteği ile (tedavi tamamlanmadan), sevk (üst merkeze transfer), exitus (ölüm). Kendi isteği ile taburculuk tıbbi riskleri artırabilir.",
+    "tehlikeli_deger": null,
+    "gercek_hayat_ornekleri": [
+      {
+        "ingilizce_orijinal": "Discharge condition: Stable.",
+        "turkce_ozet": "Taburculuk durumu: Stabil (durumu düzelmiş)"
+      },
+      {
+        "ingilizce_orijinal": "Patient discharged in satisfactory condition with good urinary stream and minimal hematuria.",
+        "turkce_ozet": "İdrar akımı düzelmiş, minimal kanlı idrar ile tatmin edici durumda taburcu edildi."
+      },
+      {
+        "ingilizce_orijinal": "Patient discharged from services due to missed sessions over three weeks.",
+        "turkce_ozet": "3 haftadır seansa gelmediği için tedaviden çıkarıldı."
+      }
+    ]
+  },
+
+  "Konsultasyon": {
+    "tam_adi": "Konsültasyon / Consultation",
+    "kategori": "Epikriz",
+    "normal_aralik": null,
+    "sade_aciklama": "Tedavi sürecinizde başka uzmanlık dallarından görüş alınması işlemidir.",
+    "yuksekse": null,
+    "dusukse": null,
+    "anormal_durum": "Çok sayıda konsültasyon, karmaşık veya çok sistemli bir hastalığı gösterebilir. Konsültasyonların sonuçlarının ve önerilerinin epikrizde yer alması tedavi sürekliliği için önemlidir.",
+    "tehlikeli_deger": null,
+    "gercek_hayat_ornekleri": [
+      {
+        "ingilizce_orijinal": "Cardiology was consulted; recommendations were to reduce lisinopril to 5 mg daily.",
+        "turkce_ozet": "Kardiyoloji konsültasyonu yapıldı; lisinopril dozunun 5 mg'a indirilmesi önerildi."
+      },
+      {
+        "ingilizce_orijinal": "Patient will need to see a nutritionist and mental health worker prior to surgery.",
+        "turkce_ozet": "Ameliyat öncesi diyetisyen ve psikolog görüşmesi planlandı."
+      }
+    ]
+  },
+
+  "Prognoz": {
+    "tam_adi": "Prognoz (Hastalığın Öngörülen Seyri) / Prognosis",
+    "kategori": "Epikriz",
+    "normal_aralik": null,
+    "sade_aciklama": "Hastalığınızın bundan sonraki beklenen seyrini, iyileşme sürecini ve olası sonuçlarını gösteren tıbbi değerlendirmedir.",
+    "yuksekse": null,
+    "dusukse": null,
+    "anormal_durum": "Kötü prognoz, hastalığın ilerleyici veya tedaviye dirençli olduğunu gösterir. Palyatif bakım, ek tedavi seçenekleri veya yaşam kalitesi planlaması gerekebilir.",
+    "tehlikeli_deger": null,
+    "gercek_hayat_ornekleri": [
+      {
+        "ingilizce_orijinal": "Pathology report pending; further oncology follow-up required.",
+        "turkce_ozet": "Patoloji sonucu bekleniyor; onkoloji takibi gerekli."
+      },
+      {
+        "ingilizce_orijinal": "Patient continues to have difficulty with visual scanning and sustained attention secondary to significant left neglect.",
+        "turkce_ozet": "Sol taraf ihmali nedeniyle görsel tarama ve dikkat sorunları devam ediyor; prognoz kısmi iyileşme yönünde."
+      }
+    ]
+  },
+
+  "Taburculuk_Ilaclari": {
+    "tam_adi": "Taburculuk İlaçları (Reçete) / Discharge Medications",
+    "kategori": "Epikriz",
+    "normal_aralik": null,
+    "sade_aciklama": "Hastaneden çıktıktan sonra evde kullanmanız gereken ilaçların listesidir. Doz, kullanım sıklığı ve süresi yazılır.",
+    "yuksekse": null,
+    "dusukse": null,
+    "anormal_durum": "İlaç etkileşimleri, doz hataları veya alerji öyküsü ile çelişen ilaçların reçete edilmesi ciddi yan etkilere yol açabilir. İlaç uyumsuzluğu (non-compliance) tedavi başarısızlığına neden olabilir.",
+    "tehlikeli_deger": null,
+    "gercek_hayat_ornekleri": [
+      {
+        "ingilizce_orijinal": "Motrin 600 mg 1 tablet p.o. q.8h. p.r.n. pain; Colace 100 mg daily p.r.n. constipation; ferrous sulfate 60 mg daily; multivitamin 1 tablet daily.",
+        "turkce_ozet": "Ağrı kesici (Motrin 600 mg, 8 saatte bir, gerektiğinde); kabızlık için yumuşatıcı (Colace 100 mg); demir takviyesi; multivitamin – hepsi ağızdan"
+      },
+      {
+        "ingilizce_orijinal": "Bactrim DS one tablet daily for ten days. Standard post-prostatic surgery instruction sheet.",
+        "turkce_ozet": "Antibiyotik (Bactrim DS): 10 gün boyunca günde bir tablet; prostat ameliyatı sonrası bakım talimatları verildi"
+      },
+      {
+        "ingilizce_orijinal": "Coreg 12.5 mg b.i.d., lisinopril 5 mg daily (dose reduced per cardiology).",
+        "turkce_ozet": "Kalp ilacı (Coreg 12.5 mg, günde 2 kez); tansiyon ilacı (lisinopril 5 mg, kardiyoloji önerisiyle dozu azaltıldı)"
+      }
+    ]
+  },
+
+  "Kontrol_Randevusu": {
+    "tam_adi": "Kontrol Randevusu / Follow-up Appointment",
+    "kategori": "Epikriz",
+    "normal_aralik": null,
+    "sade_aciklama": "Taburculuk sonrası tedavinin etkinliğinin değerlendirilmesi için planlanan doktor muayene tarihidir.",
+    "yuksekse": null,
+    "dusukse": null,
+    "anormal_durum": "Kontrol randevusuna gitmemek, komplikasyonların geç fark edilmesine ve hastalığın ilerlemesine yol açabilir. Özellikle cerrahi sonrası, kemoterapi ve kronik hastalık takibinde kontrol randevuları kritiktir.",
+    "tehlikeli_deger": null,
+    "gercek_hayat_ornekleri": [
+      {
+        "ingilizce_orijinal": "To be followed in my office in one week and by Dr. ABC next available as an outpatient.",
+        "turkce_ozet": "Bir hafta sonra klinikte kontrol; ayrıca ilk müsait zamanda uzman doktor polikliniğine başvurulacak"
+      },
+      {
+        "ingilizce_orijinal": "Patient to return Wednesday for wound check and suture removal.",
+        "turkce_ozet": "Yara kontrolü ve dikiş alımı için Çarşamba günü kontrole gelmesi planlandı"
+      }
+    ]
+  },
+
+  "Tedavi_Plani": {
+    "tam_adi": "Tedavi Planı / Treatment Plan",
+    "kategori": "Epikriz",
+    "normal_aralik": null,
+    "sade_aciklama": "Hastalığınız için uygulanacak tıbbi tedavinin (ilaç, cerrahi, fizik tedavi vb.) aşamalarını ve hedeflerini gösteren plandır.",
+    "yuksekse": null,
+    "dusukse": null,
+    "anormal_durum": "Tedavi planının hasta tarafından anlaşılmaması veya uygulanmaması, hastalığın kötüleşmesine yol açar. Plan, hasta eğitimi, yaşam tarzı değişiklikleri ve izlem takvimini içermelidir.",
+    "tehlikeli_deger": null,
+    "gercek_hayat_ornekleri": [
+      {
+        "ingilizce_orijinal": "Regular diet, bedrest x1 week with slow return to normal activity over 4-6 weeks, pelvic rest for 6 weeks.",
+        "turkce_ozet": "Normal diyet; 1 hafta istirahat, 4-6 haftada normale dönüş; 6 hafta pelvik istirahat"
+      },
+      {
+        "ingilizce_orijinal": "She will try Zyrtec instead of Allegra. Option to use loratadine. Samples of Nasonex given for 3 weeks.",
+        "turkce_ozet": "Alerji ilacı değiştirildi (Zyrtec), alternatif olarak loratadin önerildi; 3 haftalık burun spreyi numunesi verildi"
+      },
+      {
+        "ingilizce_orijinal": "Will need H. pylori testing, thyroid function tests, LFTs, glycosylated hemoglobin, fasting blood sugar. Submit for insurance approval after workup.",
+        "turkce_ozet": "Helicobacter pylori, tiroid, karaciğer, HbA1c ve açlık şekeri testleri yapılacak; ardından sigorta onayı için başvurulacak"
+      }
+    ]
+  },
+
+  "ICD10_Kodu": {
+    "tam_adi": "ICD-10 Kodu / ICD-10 Code (International Classification of Diseases, 10th Revision)",
+    "kategori": "Epikriz",
+    "normal_aralik": null,
+    "sade_aciklama": "Dünya Sağlık Örgütü (WHO) tarafından belirlenen uluslararası hastalık sınıflandırma kodudur. Her tanının bir kodu vardır.",
+    "yuksekse": null,
+    "dusukse": null,
+    "anormal_durum": "Yanlış ICD-10 kodu, istatistiksel hatalara, sigorta red'lerine ve yanlış tedavi protokollerinin uygulanmasına yol açabilir. Kod, tanı ile bire bir uyumlu olmalıdır.",
+    "tehlikeli_deger": null,
+    "sik_kullanilan_kodlar": [
+      { "kod": "I10", "tanim": "Hipertansiyon (Esansiyel)" },
+      { "kod": "E11.9", "tanim": "Tip 2 Diyabetes Mellitus, komplikasyonsuz" },
+      { "kod": "E03.9", "tanim": "Hipotiroidizm, tanımlanmamış" },
+      { "kod": "J18.9", "tanim": "Pnömoni, tanımlanmamış" },
+      { "kod": "I50.9", "tanim": "Kalp Yetmezliği, tanımlanmamış" },
+      { "kod": "J44.1", "tanim": "KOAH, akut alevlenme" },
+      { "kod": "N39.0", "tanim": "İdrar Yolu Enfeksiyonu" },
+      { "kod": "K21.0", "tanim": "Gastroözofajyal Reflü (özofajit ile)" },
+      { "kod": "M06.9", "tanim": "Romatoid Artrit, tanımlanmamış" },
+      { "kod": "R55", "tanim": "Senkop ve Kollaps" }
+    ]
+  }
 }
