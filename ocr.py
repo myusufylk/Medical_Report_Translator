@@ -3,174 +3,88 @@ from PIL import Image
 from pdf2image import convert_from_path
 import os
 import fitz
+import re
 
-
+# Sistem yolları
 pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
 POPPLER_PATH = r"C:\poppler\Library\bin"
 
-
 def clean_text(text: str) -> str:
-    text = text.replace("\r", "\n")
-
-    lines = text.split("\n")
-    cleaned = []
-
-    for line in lines:
-        line = line.strip()
-
-        if not line:
-            continue
-
-        cleaned.append(line)
-
-    return "\n".join(cleaned)
-
-
-def process_image(image):
-    image = image.convert("L")
-
-    text = pytesseract.image_to_string(
-        image,
-        lang="tur+eng",
-        config="--oem 3 --psm 6"
-    )
-
-    return clean_text(text)
-
-
-# 📷 IMAGE
-def extract_text_from_image(path: str) -> str:
-    image = Image.open(path)
-    return process_image(image)
-
-
-# 📄 PDF
-def extract_text_from_pdf(path: str) -> str:
-    try:
-        doc = fitz.open(path)
-        text = ""
-
-        for page in doc:
-            text += page.get_text()
-
-        if text.strip():
-            return clean_text(text)
-
-    except:
-        pass
-
-
-    images = convert_from_path(path, dpi=300, poppler_path=POPPLER_PATH)
-
-    texts = []
-    for img in images:
-        texts.append(process_image(img))
-
-    return "\n\n".join(texts)
-
-
+    """Metni e-Nabız kirliliğinden arındırır."""
+    text = text.replace('"', '').replace('$', '').replace('\r', '')
+    return text
 
 def extract_text(file_path: str) -> str:
+    """PDF veya Görsel kaynaklarından metin çıkarır."""
     ext = os.path.splitext(file_path)[1].lower()
-
-    if ext in [".png", ".jpg", ".jpeg"]:
-        return extract_text_from_image(file_path)
-
-    elif ext == ".pdf":
-        return extract_text_from_pdf(file_path)
-
-    else:
-        raise ValueError("Desteklenmeyen dosya formatı")
-
+    if ext == ".pdf":
+        try:
+            doc = fitz.open(file_path)
+            text = "".join([page.get_text() for page in doc])
+            if text.strip() and len(text) > 100: 
+                return clean_text(text)
+        except: 
+            pass
+        images = convert_from_path(file_path, dpi=300, poppler_path=POPPLER_PATH)
+        return clean_text("\n".join([pytesseract.image_to_string(img.convert("L"), lang="tur+eng") for img in images]))
+    elif ext in [".png", ".jpg", ".jpeg"]:
+        image = Image.open(file_path).convert("L")
+        return clean_text(pytesseract.image_to_string(image, lang="tur+eng"))
+    return ""
 
 def extract_lab_values(text: str) -> dict:
-    lines = [l.strip() for l in text.split("\n") if l.strip()]
+    """Metni parçalara ayırır, sayısal değerleri ve referans aralıklarını eşleştirir."""
+    parts = [p.strip() for p in re.split(r'[,\n]', text) if p.strip()]
     results = {}
 
-    def to_float(val):
+    def to_float(val_str):
+        if not val_str or any(char in val_str for char in ["^", "/", "*"]): 
+            return None
+        cleaned = re.sub(r"[^\d\.]", "", val_str.replace(",", "."))
         try:
-            return float(val.replace(",", "."))
-        except:
+            f_val = float(cleaned)
+            return f_val if f_val < 1000000 else None
+        except: 
             return None
 
-    def parse_ref(ref_str):
-        try:
-            ref_str = ref_str.replace(",", ".")
-            parts = ref_str.split("-")
-            if len(parts) == 2:
-                return float(parts[0].strip()), float(parts[1].strip())
-        except:
-            pass
-        return None, None
+    ref_pattern = r"(\d+[\.,]?\d*)\s*[-–]\s*(\d+[\.,]?\d*)"
 
-    def get_flag(value, ref_min, ref_max):
-        if value is None or ref_min is None or ref_max is None:
-            return "unknown"
-        if value < ref_min:
-            return "low"
-        elif value > ref_max:
-            return "high"
-        else:
-            return "normal"
+    for i in range(len(parts)):
+        val = to_float(parts[i])
+        
+        # Tarih formatına takılmayan geçerli sayıları yakala
+        if val is not None and not re.match(r"\d{2}\.\d{2}\.", parts[i]):
+            if i > 0:
+                name = parts[i-1].lower()
+                # Sadece sayıdan oluşan sahte isimleri atla
+                if re.match(r"^[0-9\.,\-\s]+$", name): 
+                    continue
 
-    i = 0
-    while i < len(lines):
-        line = lines[i]
-        line_lower = line.lower()
+                # Referans aralığını bulmak için sonraki 4 parçayı tara
+                ref_min, ref_max = None, None
+                for offset in range(1, 5):
+                    if i + offset < len(parts):
+                        match = re.search(ref_pattern, parts[i+offset])
+                        if match:
+                            ref_min = to_float(match.group(1))
+                            ref_max = to_float(match.group(2))
+                            break
 
-        if line.startswith("Hemogram") and i + 3 < len(lines):
-            try:
-                name = line.replace("Hemogram", "").strip().lower()
-
-                raw_value = lines[i+1]
-                unit = lines[i+2].strip()
-                ref = lines[i+3].strip()
-
-                value = to_float(raw_value)
-                ref_min, ref_max = parse_ref(ref)
-
-                flag = get_flag(value, ref_min, ref_max)
-
-                results[name] = {
-                    "value": value,
-                    "unit": unit,
-                    "ref": ref,
-                    "ref_min": ref_min,
-                    "ref_max": ref_max,
-                    "status": flag
-                }
-
-                i += 4
-                continue
-            except:
-                pass
-
-        if "hemogram" in line_lower:
-            try:
-                parts = line.split()
-
-                if len(parts) >= 5:
-                    name = parts[1].lower()
-                    raw_value = parts[2]
-                    unit = parts[3].strip()
-                    ref = " ".join(parts[4:]).strip()
-
-                    value = to_float(raw_value)
-                    ref_min, ref_max = parse_ref(ref)
-
-                    flag = get_flag(value, ref_min, ref_max)
-
+                # Yasaklı başlıkları filtrele
+                if len(name) > 2 and name not in ["sonuç", "referans", "birimi", "tahlil", "tarih", "sayfa"]:
+                    # main.py ile tam uyum için durumları BÜYÜK HARF yapıyoruz
+                    status = "NORMAL"
+                    if ref_min is not None and ref_max is not None:
+                        if val < ref_min: 
+                            status = "DÜŞÜK"
+                        elif val > ref_max: 
+                            status = "YÜKSEK"
+                    
+                    # main.py'nin çapraz kontrol mantığı patlamasın diye ref sınırlarını da teslim ediyoruz
                     results[name] = {
-                        "value": value,
-                        "unit": unit,
-                        "ref": ref,
+                        "value": val, 
+                        "status": status,
                         "ref_min": ref_min,
-                        "ref_max": ref_max,
-                        "status": flag
+                        "ref_max": ref_max
                     }
-            except:
-                pass
-
-        i += 1
-
     return results
