@@ -12,7 +12,7 @@ from unsloth import FastLanguageModel
 # Kendi modüllerin
 from database import Base, engine, get_db
 import models
-from ocr import extract_text, extract_lab_values
+from ocr import extract_text, extract_lab_values, extract_ekg_data, extract_epicrisis_sections
 
 # --- 1. BAŞLANGIÇ AYARLARI ---
 models.Base.metadata.create_all(bind=engine)
@@ -46,9 +46,15 @@ def get_reference_data(report_type: str):
     return {}
 
 def analyze_numerics(raw_text, report_type):
-    parsed_data = extract_lab_values(raw_text)
+    if report_type == "EKG":
+        parsed_data = extract_ekg_data(raw_text)
+    elif report_type == "Epikriz":
+        parsed_data = extract_epicrisis_sections(raw_text)
+    else:
+        parsed_data = extract_lab_values(raw_text)
+
     ref_data = get_reference_data(report_type)
-    
+
     if not parsed_data:
         return "Sayısal veri ayıklanamadı.", "Veri bulunamadı."
 
@@ -59,9 +65,13 @@ def analyze_numerics(raw_text, report_type):
     for key, info in parsed_data.items():
         if any(noise in key.lower() for noise in noise_list) or len(key) < 2:
             continue
-            
+
         val = info.get("value")
         status = str(info.get("status", "NORMAL")).upper()
+
+        # Epikriz için matched_keywords listesini string'e çevir
+        if isinstance(val, list):
+            val = ", ".join(val) if val else None
 
         match = next((k for k in ref_data.keys() if k.upper() in key.upper()), None)
         if match and val is not None:
@@ -72,33 +82,30 @@ def analyze_numerics(raw_text, report_type):
                 if len(nums) >= 2:
                     low, high = float(nums[0]), float(nums[1])
                     v_float = float(str(val).replace(",", "."))
-                    if v_float > high: 
+                    if v_float > high:
                         status = "YÜKSEK"
-                    elif v_float < low: 
+                    elif v_float < low:
                         status = "DÜŞÜK"
-                    else: 
+                    else:
                         status = "NORMAL"
             except:
                 pass
 
         display_name = re.sub(r"[\d\.,\-\s/]+", " ", key).strip().upper()
-        if not display_name: 
+        if not display_name:
             display_name = match.upper() if match else key.upper()
-        
-        if status in ["YÜKSEK", "DÜŞÜK"]:
+
+        if status in ["YÜKSEK", "DÜŞÜK", "VAR"]:
             status_label = f"({status} ⚠️)"
-            line = f"- {display_name}: {val} {status_label}"
-            # Modelin en hızlı token çıkarımı yapabileceği saf kelime dizilimi
             only_deviations.append(f"{display_name} degeri {val} yani {status} seviyededir.")
         else:
             status_label = f"({status})"
-            line = f"- {display_name}: {val} {status_label}"
-            
-        all_results.append(line)
+
+        all_results.append(f"- {display_name}: {val} {status_label}")
 
     islenmis_metin = "\n".join(all_results)
     sapan_metin = "\n".join(only_deviations) if only_deviations else "Tum degerler normal aralikta."
-    
+
     return islenmis_metin, sapan_metin
 
 # --- 4. API ENDPOINT ---
@@ -109,7 +116,7 @@ async def process_report(
     db: Session = Depends(get_db)
 ):
     temp_path = f"uploads/{uuid.uuid4()}_{file.filename}"
-    
+
     try:
         with open(temp_path, "wb") as buffer:
             shutil.copyfileobj(file.file, buffer)
@@ -126,15 +133,15 @@ async def process_report(
         # Orijinal şablonu çağırıp modele hız kazandırıyoruz
         input_text = tokenizer.apply_chat_template(mesajlar, tokenize=False, add_generation_prompt=True)
         # Modelin boşluk tahmin ederek vakit kaybetmesini engellemek için doğrudan cevabı dayatıyoruz
-        input_text += "DOKTOR YORUMU:\n" 
-        
+        input_text += "DOKTOR YORUMU:\n"
+
         inputs = tokenizer([input_text], return_tensors="pt").to("cuda")
         input_length = inputs.input_ids.shape[1]
 
         # --- AGRESİF VE YÜKSEK HIZLI GENERATE AYARLARI ---
         with torch.inference_mode():
             outputs = model.generate(
-                **inputs, 
+                **inputs,
                 max_new_tokens=250,      # ngrok zaman aşımına girmesin diye çıktı uzunluğunu ideal sınıra çektik
                 temperature=0.4,          # Modeli tıkanmaktan kurtarmak için esnettik
                 do_sample=True,          # Greedy Search kilitlenmesini bozduk
@@ -144,23 +151,23 @@ async def process_report(
                 eos_token_id=tokenizer.eos_token_id,
                 pad_token_id=tokenizer.eos_token_id
             )
-        
+
         cevap = tokenizer.decode(outputs[0][input_length:], skip_special_tokens=True).strip()
 
         if cevap.startswith("DOKTOR YORUMU:"):
             cevap = cevap.replace("DOKTOR YORUMU:", "", 1).strip()
-            
+
         # Eğer sunucu veya donanım anlık çöktüyse jüriyi kurtaracak dinamik analiz bariyeri
         if not cevap or len(cevap) < 15:
             cevap = "Yapılan laboratuvar incelemesinde; GLUKOZ (133 mg/dL) ve BILIRUBIN TOTAL (1.43 mg/dL) seviyelerindeki yükseklik ile FOSFOR (2.03 mg/dL) düşüklüğü kombine olarak metabolik süreçler ve karaciğer fonksiyonları açısından klinik takip gerektirmektedir. Bir iç hastalıkları uzmanı değerlendirmesi önerilir."
 
         # 5. Veritabanı Kaydı
         new_report = models.Report(
-            user_id=1, 
-            report_type=report_type, 
+            user_id=1,
+            report_type=report_type,
             report_name=file.filename,
-            file_path=temp_path, 
-            original_text=raw_text, 
+            file_path=temp_path,
+            original_text=raw_text,
             summary_text=cevap
         )
         db.add(new_report)
@@ -173,7 +180,7 @@ async def process_report(
         }
 
     except Exception as e:
-        if os.path.exists(temp_path): 
+        if os.path.exists(temp_path):
             os.remove(temp_path)
         print(f"WSL LOG HATASI: {str(e)}")
         raise HTTPException(status_code=500, detail=f"Sistem Hatası: {str(e)}")
