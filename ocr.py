@@ -40,6 +40,35 @@ def _alias_match(alias, text):
     return bool(re.search(rf'\b{re.escape(alias)}\b', text))
 
 
+def _preprocess_ekg_image(image):
+    """
+    EKG görselindeki kırmızı grid çizgilerini temizler,
+    sadece siyah yazı karakterlerini bırakır.
+    Tesseract'ın kırmızı ızgara nedeniyle ürettiği bozuk OCR çıktısını engeller.
+    """
+    import numpy as np
+    import PIL.ImageOps
+
+    img_array = np.array(image.convert("RGB"))
+
+    r = img_array[:, :, 0].astype(int)
+    g = img_array[:, :, 1].astype(int)
+    b = img_array[:, :, 2].astype(int)
+
+    # Kırmızı piksel maskesi: R yüksek, G ve B düşük
+    red_mask = (r > 150) & (g < 100) & (b < 100)
+
+    # Kırmızı pikselleri beyaza çevir (grid temizleme)
+    img_array[red_mask] = [255, 255, 255]
+
+    cleaned = Image.fromarray(img_array.astype(np.uint8)).convert("L")
+
+    # Kontrast artır: siyah yazıları belirginleştir
+    cleaned = PIL.ImageOps.autocontrast(cleaned, cutoff=2)
+
+    return cleaned
+
+
 # ─────────────────────────────────────────────
 # METİN TEMİZLEME VE ÇIKARMA
 # ─────────────────────────────────────────────
@@ -50,8 +79,11 @@ def clean_text(text: str) -> str:
     return text
 
 
-def extract_text(file_path: str) -> str:
-    """PDF veya Görsel kaynaklarından metin çıkarır."""
+def extract_text(file_path: str, is_ekg: bool = False) -> str:
+    """
+    PDF veya Görsel kaynaklarından metin çıkarır.
+    is_ekg=True verilirse EKG ön işleme (kırmızı grid temizleme) uygulanır.
+    """
     ext = os.path.splitext(file_path)[1].lower()
     if ext == ".pdf":
         try:
@@ -65,13 +97,15 @@ def extract_text(file_path: str) -> str:
             file_path, dpi=300,
             poppler_path=POPPLER_PATH if POPPLER_PATH else None
         )
-        return clean_text("\n".join([
-            pytesseract.image_to_string(img.convert("L"), lang="tur+eng")
-            for img in images
-        ]))
+        processed = []
+        for img in images:
+            prepared = _preprocess_ekg_image(img) if is_ekg else img.convert("L")
+            processed.append(pytesseract.image_to_string(prepared, lang="tur+eng"))
+        return clean_text("\n".join(processed))
     elif ext in [".png", ".jpg", ".jpeg"]:
-        image = Image.open(file_path).convert("L")
-        return clean_text(pytesseract.image_to_string(image, lang="tur+eng"))
+        image = Image.open(file_path)
+        prepared = _preprocess_ekg_image(image) if is_ekg else image.convert("L")
+        return clean_text(pytesseract.image_to_string(prepared, lang="tur+eng"))
     return ""
 
 
@@ -124,17 +158,73 @@ def extract_lab_values(text: str) -> dict:
 # EKG
 # ─────────────────────────────────────────────
 
+# EKG satırlarında "P 114 ms", "PR 148 ms" gibi kayma hatalarını yakalamak için
+# birim bazlı doğrudan satır tarama deseni
+_EKG_LINE_PATTERN = re.compile(
+    r'(p\b|pr\b|pri\b|pr\s+interval|qrs\b|qrs\s+duration|qt\b|qtc\b|qt\s+interval'
+    r'|heart\s+rate|ventricular\s+rate|hr\b)'
+    r'[\s\|\)\:]*'           # OCR kirliliği: |, ), :, boşluk
+    r'(\d{2,3})'             # 2-3 haneli sayı (ms veya bpm)
+    r'[\s\|\)\:]*'
+    r'(ms|bpm)?',            # birim (opsiyonel)
+    re.IGNORECASE
+)
+
+# Kayma hatası için alias → param_key eşlemesi
+_LINE_ALIAS_MAP = {
+    "p":                "P_Suresi",        # P dalgası ms — EKG kağıdında ayrıca gösterilebilir
+    "pr":               "PR_Araligi",
+    "pri":              "PR_Araligi",
+    "pr interval":      "PR_Araligi",
+    "qrs":              "QRS_Suresi",
+    "qrs duration":     "QRS_Suresi",
+    "qt":               "QT_QTc_Araligi",
+    "qtc":              "QT_QTc_Araligi",
+    "qt interval":      "QT_QTc_Araligi",
+    "heart rate":       "Kalp_Hizi",
+    "ventricular rate": "Kalp_Hizi",
+    "hr":               "Kalp_Hizi",
+}
+
+
+def _extract_ekg_by_unit_scan(text: str) -> dict:
+    """
+    OCR kayma hatasına karşı ikinci katman:
+    "P 114 ms", "PR 148 ms", "QRS 92 ms" gibi birim içeren satırları
+    doğrudan regex ile tarar ve param_key → value eşlemesi döndürür.
+    """
+    found = {}
+    lower = text.lower()
+    for m in _EKG_LINE_PATTERN.finditer(lower):
+        raw_key = re.sub(r'[\s]+', ' ', m.group(1).strip())
+        val     = _to_float(m.group(2))
+        if val is None:
+            continue
+        param_key = _LINE_ALIAS_MAP.get(raw_key)
+        if param_key and param_key not in found:
+            found[param_key] = val
+    return found
+
+
 def extract_ekg_data(text: str) -> dict:
     """
     EKG metnini parçalara ayırır, sayısal parametreleri referans aralıklarıyla
     eşleştirir ve her bulgu için value/status/ref_min/ref_max yapısı döndürür.
+
+    Katmanlar (öncelik sırasıyla):
+      1. parts üzerinden lab_values mantığı (word boundary ile)
+      2. Birim bazlı satır tarama — OCR kayma hatası düzeltmesi
+      3. lower_text üzerinden serbest regex (word boundary ile)
+      4. Hiçbirinde bulunamazsa → BULUNAMADI
     """
     parts = [p.strip() for p in re.split(r'[,\n]', text) if p.strip()]
     lower_text = text.lower()
     ref_pattern = r"(\d+[\.,]?\d*)\s*[-–]\s*(\d+[\.,]?\d*)"
 
+    # Katman 2'yi önceden çalıştır
+    unit_scan_results = _extract_ekg_by_unit_scan(text)
+
     # ── Sayısal EKG parametreleri ──────────────────────────────────────────
-    # Alias'lar uzundan kısaya sıralı: daha spesifik olanlar önce eşleşsin
     numeric_params = {
         "Kalp_Hizi": {
             "aliases": ["ventricular rate", "heart rate", "hr"],
@@ -188,7 +278,11 @@ def extract_ekg_data(text: str) -> dict:
                                     break
                         break
 
-        # 2) parts'ta bulunamadıysa lower_text üzerinden serbest regex (word boundary ile)
+        # 2) Katman 1 bulamadıysa birim bazlı satır taramasını kullan (kayma hatası düzeltmesi)
+        if value is None and param_key in unit_scan_results:
+            value = unit_scan_results[param_key]
+
+        # 3) Hâlâ bulunamadıysa lower_text üzerinden serbest regex (word boundary ile)
         if value is None:
             for alias in meta["aliases"]:
                 match = re.search(
@@ -200,11 +294,11 @@ def extract_ekg_data(text: str) -> dict:
                     if value is not None:
                         break
 
-        # 3) Referans aralığı bulunamadıysa sabit varsayılanları kullan
+        # 4) Referans aralığı bulunamadıysa sabit varsayılanları kullan
         effective_min = ref_min_found if ref_min_found is not None else meta["ref_min"]
         effective_max = ref_max_found if ref_max_found is not None else meta["ref_max"]
 
-        # 4) Status belirle
+        # 5) Status belirle
         if value is None:
             status = "BULUNAMADI"
         elif value < effective_min:
