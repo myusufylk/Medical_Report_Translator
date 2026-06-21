@@ -121,7 +121,7 @@ async def process_report(
         with open(temp_path, "wb") as buffer:
             shutil.copyfileobj(file.file, buffer)
 
-       raw_text = extract_text(temp_path)
+        raw_text = extract_text(temp_path)
 
         labeled_results, model_input_results = analyze_numerics(
             raw_text,
