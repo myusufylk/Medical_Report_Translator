@@ -5,9 +5,9 @@ import shutil
 import os
 import uuid
 import json
-import torch
+#import torch
 import re
-from unsloth import FastLanguageModel
+#from unsloth import FastLanguageModel
 
 # Kendi modüllerin
 from database import Base, engine, get_db
@@ -22,13 +22,13 @@ if not os.path.exists("uploads"):
 app = FastAPI(title="Medikal Analiz Sistemi - Profesyonel Karar Destek")
 
 # --- 2. MODEL YÜKLEME (Unsloth Llama-3) ---
-MODEL_YOLU = "medikal_model_llama3"
-model, tokenizer = FastLanguageModel.from_pretrained(
-    model_name = MODEL_YOLU,
-    max_seq_length = 2048,
-    load_in_4bit = True,
-)
-FastLanguageModel.for_inference(model)
+#MODEL_YOLU = "medikal_model_llama3"
+#model, tokenizer = FastLanguageModel.from_pretrained(
+    #model_name = MODEL_YOLU,
+    #max_seq_length = 2048,
+    #load_in_4bit = True,
+#)
+#FastLanguageModel.for_inference(model)
 
 # --- 3. AKILLI ANALİZ MANTIĞI ---
 def get_reference_data(report_type: str):
@@ -121,47 +121,22 @@ async def process_report(
         with open(temp_path, "wb") as buffer:
             shutil.copyfileobj(file.file, buffer)
 
-        raw_text = extract_text(temp_path)
-        labeled_results, model_input_results = analyze_numerics(raw_text, report_type)
+        raw_text = extract_text(
+            temp_path,
+            is_ekg=("EKG" in report_type)
+        )
 
-        # Modelin token eşleme hızını uçuracak minimalist resmi şablon
-        mesajlar = [
-            {"role": "system", "content": "Sen profesyonel bir hekimsin. Gelen bulgularin tıbbi analizini çok kısa, maddeler halinde ve net cümlelerle yaz."},
-            {"role": "user", "content": f"BULGULAR:\n{model_input_results}"}
-        ]
+        labeled_results, model_input_results = analyze_numerics(
+            raw_text,
+            report_type
+        )
 
-        # Orijinal şablonu çağırıp modele hız kazandırıyoruz
-        input_text = tokenizer.apply_chat_template(mesajlar, tokenize=False, add_generation_prompt=True)
-        # Modelin boşluk tahmin ederek vakit kaybetmesini engellemek için doğrudan cevabı dayatıyoruz
-        input_text += "DOKTOR YORUMU:\n"
+        # GEÇİCİ OLARAK LLM KAPALI
+        cevap = model_input_results
 
-        inputs = tokenizer([input_text], return_tensors="pt").to("cuda")
-        input_length = inputs.input_ids.shape[1]
+        if not cevap:
+            cevap = "Analiz sonucu üretilemedi."
 
-        # --- AGRESİF VE YÜKSEK HIZLI GENERATE AYARLARI ---
-        with torch.inference_mode():
-            outputs = model.generate(
-                **inputs,
-                max_new_tokens=250,      # ngrok zaman aşımına girmesin diye çıktı uzunluğunu ideal sınıra çektik
-                temperature=0.4,          # Modeli tıkanmaktan kurtarmak için esnettik
-                do_sample=True,          # Greedy Search kilitlenmesini bozduk
-                top_p=0.85,               # Kelime havuzunu optimize ettik
-                use_cache=True,          # KV-Cache aktif (üretim hızını katlar)
-                bos_token_id=tokenizer.bos_token_id,
-                eos_token_id=tokenizer.eos_token_id,
-                pad_token_id=tokenizer.eos_token_id
-            )
-
-        cevap = tokenizer.decode(outputs[0][input_length:], skip_special_tokens=True).strip()
-
-        if cevap.startswith("DOKTOR YORUMU:"):
-            cevap = cevap.replace("DOKTOR YORUMU:", "", 1).strip()
-
-        # Eğer sunucu veya donanım anlık çöktüyse jüriyi kurtaracak dinamik analiz bariyeri
-        if not cevap or len(cevap) < 15:
-            cevap = "Yapılan laboratuvar incelemesinde; GLUKOZ (133 mg/dL) ve BILIRUBIN TOTAL (1.43 mg/dL) seviyelerindeki yükseklik ile FOSFOR (2.03 mg/dL) düşüklüğü kombine olarak metabolik süreçler ve karaciğer fonksiyonları açısından klinik takip gerektirmektedir. Bir iç hastalıkları uzmanı değerlendirmesi önerilir."
-
-        # 5. Veritabanı Kaydı
         new_report = models.Report(
             user_id=1,
             report_type=report_type,
@@ -170,6 +145,7 @@ async def process_report(
             original_text=raw_text,
             summary_text=cevap
         )
+
         db.add(new_report)
         db.commit()
 
@@ -182,9 +158,13 @@ async def process_report(
     except Exception as e:
         if os.path.exists(temp_path):
             os.remove(temp_path)
-        print(f"WSL LOG HATASI: {str(e)}")
-        raise HTTPException(status_code=500, detail=f"Sistem Hatası: {str(e)}")
 
+        print(f"WSL LOG HATASI: {str(e)}")
+
+        raise HTTPException(
+            status_code=500,
+            detail=f"Sistem Hatası: {str(e)}"
+        )
 app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"])
 
 if __name__ == "__main__":
